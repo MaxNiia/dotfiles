@@ -2,8 +2,6 @@
 
 export ZSH="$HOME/.oh-my-zsh"
 
-#export STARSHIP_CONFIG="PATH TO starship.toml"
-
 ENABLE_CORRECTION="true"
 
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
@@ -59,7 +57,8 @@ export NVM_DIR="$HOME/.nvm"
 # Set PATH, MANPATH, etc., for Homebrew.
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 function cr (){
    exec firefox "https://duckduckgo.com/\?sites=cppreference.com&q=$1"
