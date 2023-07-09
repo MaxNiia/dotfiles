@@ -2,10 +2,10 @@
 
 # Formats
 format = """
-$directory\
-$git_branch\
-$git_status\
+$username\
+$hostname\
 $c\
+$cmake\
 $elixir\
 $elm\
 $golang\
@@ -15,14 +15,21 @@ $julia\
 $nodejs\
 $nim\
 $python\
-\n\
 $docker_context\
+$fill\
+$time\
+$line_break\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$line_break\
 $character\
 """
 
-
 continuation_prompt = """
-[](pink)\
+[❯❯](fg:pink)\
 """
 # Disable the blank line at the start of the prompt
 # add_newline = false
@@ -143,10 +150,15 @@ crust = "#11111b"
 
 # you can also replace your username with a neat symbol like  to save some space
 [username]
-show_always = false
-style_user = "fg:text"
-style_root = "fg:text"
-format = "[$user ]($style)"
+show_always = true
+style_user = "bold fg:green"
+style_root = "bold fg:red"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = true
+style = "fg:peach"
+format = "[on $hostname ]($style)"
 
 [directory]
 style = "fg:lavender"
@@ -161,6 +173,9 @@ truncation_symbol = "…/"
 "downloads" = " "
 "music" = " "
 "pictures" = " "
+"workspace" = "󰴊 "
+"dev" = " "
+".config" = "󱞞 "
 # keep in mind that the order matters. for example:
 # "important documents" = "  "
 # will not be replaced, because "documents" was already substituted before.
@@ -171,15 +186,31 @@ truncation_symbol = "…/"
 [git_branch]
 symbol = ""
 style = "fg:sky"
-format = "[ on](fg:rosewater)[ $symbol $branch]($style)"
+format = "[ on](fg:rosewater)[ $symbol(:$remote_branch) $branch]($style)"
 
 [git_status]
-format = "[$all_status](green)[$ahead_behind](red)"
+format = "[$all_status](fg:green)[$ahead_behind](fg:red)"
+
+[git_metrics]
+added_style = "bold fg:green"
+deleted_style = "bold fg:red"
+disabled = false
+
+[git_state]
+style = "bold fg:peach"
+
+[git_commit]
+style = "bold fg:overlay2"
 
 [c]
 symbol = ""
 style = "fg:sky"
 format = "[ using](fg:rosewater)[ $symbol ($version)]($style)"
+
+[cmake]
+symbol = "△"
+style = "fg:teal"
+format = "[ using](fg:rosewater)[ $symbol $version]($style)"
 
 [docker_context]
 symbol = ""
@@ -243,13 +274,22 @@ style = "fg:maroon"
 format = "[ using](fg:rosewater)[ $symbol ($version)]($style)"
 
 [time]
-disabled = true
-time_format = "%R" # Hour:Minute Format
-style = "fg:Maroon"
-format = "[♥:$time]($style)"
+disabled = false
+time_format = "%T"
+style = "bold fg:mauve"
+format = "[$time]($style)"
 
 [character]
 disabled = false
-success_symbol = "[](green)"
-error_symbol = "[](red)"
-vimcmd_symbol = "[](yellow)"
+success_symbol = "[❯](bold fg:green)"
+error_symbol = "[❯](bold fg:red)"
+vimcmd_symbol = "[❮](bold fg:yellow)"
+vimcmd_replace_one_symbol = "[❮](bold fg:lavender)"
+vimcmd_replace_symbol = "[❮](bold fg:lavender)"
+vimcmd_visual_symbol = "[V](bold fg:flamingo)"
+
+[line_break]
+disabled = false
+
+[fill]
+symbol = " "
