@@ -73,15 +73,3 @@ deploy()
    fi
    rdk deploy lhd $device --pkg -b Release --lab
 }
-
-# autoload bashcompinit
-# bashcompinit
-
-declare -x HISTFILE=$HOME/.bash_history
-declare -x HISTCONTROL=ignoredups
-declare -x HISTFILESIZE=100000
-declare -x HISTSIZE=100000
-
-if [ -f /home/max/workspace/dotfiles/zsh/zsh_source.sh ]; then
-    source /home/max/workspace/dotfiles/zsh/zsh_source.sh
-fi
