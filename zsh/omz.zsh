@@ -43,6 +43,14 @@ else
    export EDITOR='nvim'
 fi
 
+function lfs_fix() {
+   git rm --cached -r .
+   git reset --hard
+   git rm .gitattributes
+   git reset .
+   git checkout .
+}
+
 export VI_MODE_SET_CURSOR=true
 
 export FZF_DEFAULT_OPTS=" \
