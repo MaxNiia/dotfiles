@@ -1,15 +1,6 @@
 [submodule "zsh-syntax-highlighting"]
 	path = zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "spotify-tui"]
-	path = spotify-tui
-	url = git@github.com:MaxNiia/spotify-tui.git
-[submodule "lazygit"]
-	path = lazygit
-	url = git@github.com:MaxNiia/lazygit.git
-[submodule "tmux"]
-	path = tmux
-	url = git@github.com:MaxNiia/tmux.git
 [submodule "nvim"]
 	path = nvim
 	url = git@github.com:MaxNiia/nvim.git
