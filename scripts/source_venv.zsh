@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Set the directory path where the virtual environments are stored
 local venv_dir="$HOME/venvs"
