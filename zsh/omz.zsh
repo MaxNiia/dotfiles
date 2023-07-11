@@ -1,5 +1,12 @@
 #!/usr/bin/zsh
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export ZSH="$HOME/.oh-my-zsh"
 
 ENABLE_CORRECTION="true"
@@ -17,10 +24,22 @@ plugins=(
    web-search
    sudo
    colored-man-pages
-   rust
    pre-commit
    man
 )
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# WSL 2 specific settings.
+if grep -q "microsoft" /proc/version &>/dev/null; then
+    # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
+    export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
+
+    # Allows your gpg passphrase prompt to spawn (useful for signing commits).
+    # export GPG_TTY=$(tty)
+fi
 
 export FZF_BASE=/usr/bin/fzf
 
@@ -34,8 +53,6 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v
 
 PS1=""
-
-eval "$(starship init zsh)"
 
 if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
