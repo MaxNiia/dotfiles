@@ -1,8 +1,10 @@
 #!/usr/env zsh
 
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
+
+setopt inc_append_history
 
 # TODO: Move to powerlevel10k
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -16,7 +18,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 
 # WSL 2 specific settings.
 if grep -q "microsoft" /proc/version &>/dev/null; then
@@ -107,6 +108,10 @@ bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-
-
 zvm_after_init_commands+=(my_init)
+
+# . /etc/profile.d/wezterm.sh &> /dev/null 2>&1
+
+# precmd () {
+#     printf "\033]7;file://%s\033\\" "$PWD"
+# }

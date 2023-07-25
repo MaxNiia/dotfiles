@@ -8,6 +8,7 @@ alias rdkRC='clear; rdk build -s rcsos-2.4.0_x86_4.4.50-rt63 -b Release --cachep
 alias simst14='rdk sim start lhd ST14_70_Autonomous -n ST14_70 --sdk rcsos-2.4.0_x86_4.4.50-rt63 --keepterminals ; rdk sim start lhd OPS_1_Standard  -n ops --sdk rcsos-2.4.0_x86_4.4.50-rt63 --keepterminals ; rdk sim start lhd LhdAcMs_0_ACMS  -n  acms --sdk rcsos-2.4.0_x86_4.4.50-rt63 --keepterminal'
 
 export PATH="$PATH:/home/max/workspace/dev/gdb-attacher/"
+export PATH="$PATH:/mnt/c/Program\ Files/WezTerm/"
 
 DEV() 
 {

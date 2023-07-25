@@ -1,5 +1,16 @@
 [core]
-	excludesfile = /home/max/.gitignore
-	editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
+    excludesfile = /home/max/.gitignore
+    editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
+[pull]
+    rebase = true
+[fetch]
+    prune = true
+[alias]
+    st = status
+    rb = rebase
+    smu = submodule update --recursive --init
+    fush = push --force-with-lease
 [push]
-	autoSetupRemote = true
+    autoSetupRemote = true
+[mergetool "nvim"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
