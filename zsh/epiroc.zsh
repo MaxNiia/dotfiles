@@ -2,8 +2,10 @@
 
 alias rdkD='clear; rdk build -s rcsos-2.4.0_x86_4.4.50-rt63 -b Debug'
 alias rdkDC='clear; rdk build -s rcsos-2.4.0_x86_4.4.50-rt63 -b Debug --cachepot'
+alias rdkDS='clear; rdk build -s rcsos-2.4.0_x86_4.4.50-rt63 -b Debug --sccache'
 alias rdkR='clear; rdk build -s rcsos-2.4.0_x86_4.4.50-rt63 -b Release'
 alias rdkRC='clear; rdk build -s rcsos-2.4.0_x86_4.4.50-rt63 -b Release --cachepot'
+alias rdkRS='clear; rdk build -s rcsos-2.4.0_x86_4.4.50-rt63 -b Release --sccache'
 
 alias simst14='rdk sim start lhd ST14_70_Autonomous -n ST14_70 --sdk rcsos-2.4.0_x86_4.4.50-rt63 --keepterminals ; rdk sim start lhd OPS_1_Standard  -n ops --sdk rcsos-2.4.0_x86_4.4.50-rt63 --keepterminals ; rdk sim start lhd LhdAcMs_0_ACMS  -n  acms --sdk rcsos-2.4.0_x86_4.4.50-rt63 --keepterminal'
 
