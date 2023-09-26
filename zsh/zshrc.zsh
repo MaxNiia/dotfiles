@@ -89,6 +89,8 @@ source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "$plugins/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
+setopt autocd
+
 bindkey -v
 
 export VI_MODE_SET_CURSOR=true
