@@ -4,9 +4,6 @@
 [submodule "nvim"]
 	path = nvim
 	url = https://github.com:MaxNiia/nvim.git
-[submodule "powerlevel10k"]
-	path = plugins/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git
 [submodule "plugins/powerlevel10k"]
 	path = plugins/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git

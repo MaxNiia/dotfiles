@@ -3,10 +3,10 @@
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
+HISTCONTROL=ignoreboth
 
 setopt inc_append_history
 
-# TODO: Move to powerlevel10k
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -36,13 +36,17 @@ else
    export EDITOR='nvim'
 fi
 
-# TODO: Change to script file
-function lfs_fix() {
+# TODO: Move to script file
+lfs_fix() {
    git rm --cached -r .
    git reset --hard
    git rm .gitattributes
    git reset .
    git checkout .
+}
+
+cr (){
+   exec firefox "https://duckduckgo.com/\?sites=cppreference.com&q=$1"
 }
 
 export NVM_DIR="$HOME/.nvm"
@@ -54,22 +58,15 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
-# Set PATH, MANPATH, etc., for Homebrew.
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 . "$HOME/.cargo/env"
 
 
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
-cr (){
-   exec firefox "https://duckduckgo.com/\?sites=cppreference.com&q=$1"
-}
-
 alias f='nvim "$(fzf)"'
-
 alias tmux="TERM=screen-256color-bce tmux"
+alias ls=lsd
 
 ENABLE_CORRECTION="true"
 
@@ -88,6 +85,9 @@ source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "$plugins/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+source "$plugins/forgit/forgit.plugin.zsh"
+source "$plugins/forgit/completions/git-forgit.zsh"
+export PATH="$PATH:$plugins/forgit/bin"
 
 setopt autocd
 
@@ -117,3 +117,5 @@ zvm_after_init_commands+=(my_init)
 # precmd () {
 #     printf "\033]7;file://%s\033\\" "$PWD"
 # }
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+git config --global interactive.diffFilter "diff-so-fancy --patch"

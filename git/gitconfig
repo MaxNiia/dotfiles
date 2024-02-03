@@ -1,6 +1,7 @@
 [core]
     excludesfile = /home/max/.gitignore
     editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
+    pager = diff-so-fancy | less --tabs=4 -RFX
 [pull]
     rebase = true
 [fetch]
@@ -14,3 +15,5 @@
     autoSetupRemote = true
 [mergetool "nvim"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[interactive]
+    diffFilter = diff-so-fancy --patch
