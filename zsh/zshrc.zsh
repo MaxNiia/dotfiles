@@ -85,9 +85,6 @@ source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "$plugins/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-source "$plugins/forgit/forgit.plugin.zsh"
-source "$plugins/forgit/completions/git-forgit.zsh"
-export PATH="$PATH:$plugins/forgit/bin"
 
 setopt autocd
 
