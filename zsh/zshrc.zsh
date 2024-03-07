@@ -4,8 +4,10 @@ HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 HISTCONTROL=ignoreboth
-
-setopt inc_append_history
+setopt SHARE_HISTORY
+setopt APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
