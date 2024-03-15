@@ -43,19 +43,6 @@ else
    export EDITOR='nvim'
 fi
 
-# TODO: Move to script file
-lfs_fix() {
-   git rm --cached -r .
-   git reset --hard
-   git rm .gitattributes
-   git reset .
-   git checkout .
-}
-
-cr (){
-   exec firefox "https://duckduckgo.com/\?sites=cppreference.com&q=$1"
-}
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
