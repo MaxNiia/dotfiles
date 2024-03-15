@@ -86,6 +86,7 @@ source "$dotpath/mocha.zsh"
 # Scripts.
 source "$scripts/source_venv.zsh"
 source "$scripts/tmux-sessioner.zsh"
+source "$scripts/nvim_server.zsh"
 
 # Plugins.
 source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
