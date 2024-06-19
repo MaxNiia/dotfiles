@@ -11,9 +11,45 @@
     rb = rebase
     smu = submodule update --recursive --init
     fush = push --force-with-lease
+    d = difftool
+    m = mergetool
+[init]
+    templateDir = /home/max/.git-template
+    defaultBranch = main
 [push]
     autoSetupRemote = true
 [mergetool "nvim"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [interactive]
     diffFilter = diff-so-fancy --patch
+[rebase]
+    autosquash = true
+    autostash = true
+[merge]
+    tool = nvimmerge
+[mergetool "nvimmerge"]
+    cmd = nvim -c 'DiffviewOpen'
+[diff]
+    tool = nvimdiff
+    algorithm = histogram
+    submodule = log
+[submodule]
+    recurse = true
+[status]
+    submoduleSummary = true
+[difftool]
+    prompt = false
+[difftool "nvimdiff"]
+    ; cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+    cmd = nvim -c 'DiffviewOpen'
+[credential "https://github.com"]
+    username = MaxNiia
+    email = muxinatorn@gmail.com
+[interactive]
+    diffFilter = diff-so-fancy --patch
+[color]
+    ui = true
+[commit]
+    verbose = true
+[help]
+    autocorrect = prompt

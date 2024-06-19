@@ -40,7 +40,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# 0 = light, 1 = dark
 local AUTOSUGGEST=""
 
 local dotpath=$(dirname `dirname $0`)
@@ -149,11 +148,13 @@ compinit
 source "$scripts/source_venv.zsh"
 source "$scripts/tmux-sessioner.zsh"
 source "$scripts/nvim_server.zsh"
+source "$scripts/lfs.zsh"
 
 # Plugins.
+export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
 source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-source "$plugins/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh"
+source "$plugins/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
 
@@ -168,7 +169,8 @@ export VI_MODE_SET_CURSOR=true
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 function my_init() {
-  [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+   [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 }
 
 # NOTE: Keep last.
@@ -177,8 +179,8 @@ source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+# bindkey -M vicmd 'k' history-substring-search-up
+# bindkey -M vicmd 'j' history-substring-search-down
 
 zvm_after_init_commands+=(my_init)
 

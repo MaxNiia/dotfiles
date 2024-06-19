@@ -25,9 +25,6 @@
 [submodule "plugins/tmux"]
 	path = plugins/tmux
 	url = https://github.com/MaxNiia/tmux
-[submodule "plugins/--force"]
-	path = plugins/--force
-	url = https://github.com/catppuccin/zsh-syntax-highlighting
 [submodule "plugins/catppuccin-syntax-highlighting"]
 	path = plugins/catppuccin-syntax-highlighting
 	url = https://github.com/catppuccin/zsh-syntax-highlighting
