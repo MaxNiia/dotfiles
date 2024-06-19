@@ -13,14 +13,6 @@ if grep -q "microsoft" /proc/version &>/dev/null; then
    alias nvim="env TERM=wezterm nvim"
 fi
 
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -35,6 +27,7 @@ if grep -q "microsoft" /proc/version &>/dev/null; then
     # export GPG_TTY=$(tty)
 fi
 
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export FZF_BASE=/usr/bin/fzf
 
 if [[ -n $SSH_CONNECTION ]]; then
@@ -47,10 +40,93 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#000000,spinner:#f5e0dc,hl:#f38ba8 <F12>\
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+# 0 = light, 1 = dark
+local AUTOSUGGEST=""
+
+local dotpath=$(dirname `dirname $0`)
+local scripts="${dotpath}/scripts"
+local plugins="${dotpath}/plugins"
+local completions="${dotpath}/completion"
+
+# Function to check if running in WSL
+function check_wsl {
+  if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+    echo "wsl"
+  else
+    echo "not_wsl"
+  fi
+}
+
+# Function to get Windows appearance mode from WSL
+function get_windows_appearance {
+  powershell.exe -Command "Get-ItemPropertyValue -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme" 2>/dev/null | tr -d '\r'
+}
+
+# Function to check appearance mode
+function check_appearance {
+  if [[ "$(check_wsl)" == "wsl" ]]; then
+    # WSL, get Windows appearance mode
+    mode=$(get_windows_appearance)
+    if [[ "$mode" == "0" ]]; then
+      echo "dark"
+    else
+      echo "light"
+    fi
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    mode=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
+    if [[ "$mode" == "Dark" ]]; then
+      echo "dark"
+    else
+      echo "light"
+    fi
+  elif command -v gsettings > /dev/null 2>&1; then
+    # GNOME (Linux)
+    theme=$(gsettings get org.gnome.desktop.interface gtk-theme)
+    if [[ "$theme" =~ "dark" ]]; then
+      echo "dark"
+    else
+      echo "light"
+    fi
+  else
+    # Default to light mode if detection fails
+    echo "light"
+  fi
+}
+
+local appearance=$(check_appearance)
+# check if theme is 0
+if [[ "$appearance" == "dark" ]]; then
+   # Mocha
+   # FZF
+   export FZF_DEFAULT_OPTS=" \
+   --color=bg+:#313244,bg:#000000,spinner:#f5e0dc,hl:#f38ba8 <F12>\
+   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+   --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
+   # Bat
+   export BAT_THEME="Catppuccin Mocha"
+   # Autosuggest
+   AUTOSUGGEST="fg=#cdd6f4#,bg=#313244,bold,underline"
+
+   source "$plugins/catppuccin-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh"
+else
+   # Latte
+   # FZF
+   export FZF_DEFAULT_OPTS=" \
+   --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
+   --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \G
+   --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
+
+   # Bat
+   export BAT_THEME="Catppuccin Latte"
+
+   # Autosuggest
+   AUTOSUGGEST="fg=#4c4f69,bg=#ccd0da,bold,underline"
+
+   source "$plugins/catppuccin-syntax-highlighting/themes/catppuccin_latte-zsh-syntax-highlighting.zsh"
+fi
+
 
 . "$HOME/.cargo/env"
 
@@ -64,11 +140,10 @@ alias ls=lsd
 
 ENABLE_CORRECTION="true"
 
-local dotpath=$(dirname `dirname $0`)
-local plugins="${dotpath}/plugins"
-local scripts="${dotpath}/scripts"
-
-source "$dotpath/mocha.zsh"
+# Completion
+fpath=($completions $fpath)
+autoload -Uz compinit
+compinit
 
 # Scripts.
 source "$scripts/source_venv.zsh"
@@ -81,6 +156,9 @@ source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "$plugins/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$AUTOSUGGEST"
+
 setopt autocd
 
 bindkey -v
@@ -90,7 +168,7 @@ export VI_MODE_SET_CURSOR=true
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 function my_init() {
-  [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh 
+  [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 }
 
 # NOTE: Keep last.
