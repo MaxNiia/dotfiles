@@ -154,7 +154,6 @@ source "$scripts/lfs.zsh"
 export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
 source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-source "$plugins/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
 
