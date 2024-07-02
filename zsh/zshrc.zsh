@@ -94,14 +94,44 @@ function check_appearance {
 }
 
 local appearance=$(check_appearance)
+local FZF_DEFAULT_OPTS="\
+   --cycle \
+   --highlight-line \
+   --border=rounded \
+   --multi \
+   --info inline-right \
+   --layout reverse \
+   --marker ▏\
+   --pointer ▌ \
+   --prompt '▌ ' \
+   "
 # check if theme is 0
 if [[ "$appearance" == "dark" ]]; then
    # Mocha
    # FZF
-   export FZF_DEFAULT_OPTS=" \
-   --color=bg+:#313244,bg:#000000,spinner:#f5e0dc,hl:#f38ba8 <F12>\
-   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-   --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+   FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+   --color gutter:-1 \
+   --color selected-bg:#313244 \
+   --color selected-fg:#cdd6f4 \
+   --color bg:#1e1e2e \
+   --color bg+:#45475a \
+   --color fg:#cdd6f4 \
+   --color fg+:#cdd6f4 \
+   --color hl:#f5c2e7 \
+   --color hl+:#f5c2e7 \
+   --color selected-hl:#f5c2e7 \
+   --color header:#f5c2e7 \
+   --color info:#f5c2e7 \
+   --color marker:#f9e2af \
+   --color prompt:#f5c2e7 \
+   --color pointer:#f5c2e7 \
+   --color spinner:#f5c2e7 \
+   --color query:#f5c2e7 \
+   --color disabled:#cdd6f4 \
+   --color border:#cdd6f4 \
+   --color separator:#cdd6f4 \
+   --color label:#cdd6f4 \
+   "
 
    # Bat
    export BAT_THEME="Catppuccin Mocha"
@@ -112,10 +142,29 @@ if [[ "$appearance" == "dark" ]]; then
 else
    # Latte
    # FZF
-   export FZF_DEFAULT_OPTS=" \
-   --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
-   --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
-   --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
+   FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+   --color gutter:-1 \
+   --color selected-bg:#ccd0da \
+   --color selected-fg:#4c4f69 \
+   --color bg:#eff1f5 \
+   --color bg+:#bcc0cc \
+   --color fg:#4c4f69 \
+   --color fg+:#4c4f69 \
+   --color hl:#ea76cb \
+   --color hl+:#ea76cb \
+   --color selected-hl:#ea76cb \
+   --color header:#ea76cb \
+   --color info:#ea76cb \
+   --color marker:#df8e1d \
+   --color prompt:#ea76cb \
+   --color pointer:#ea76cb \
+   --color spinner:#ea76cb \
+   --color query:#ea76cb \
+   --color disabled:#4c4f69 \
+   --color border:#4c4f69 \
+   --color separator:#4c4f69 \
+   --color label:#4c4f69 \
+   "
 
    # Bat
    export BAT_THEME="Catppuccin Latte"
@@ -126,9 +175,16 @@ else
    source "$plugins/catppuccin-syntax-highlighting/themes/catppuccin_latte-zsh-syntax-highlighting.zsh"
 fi
 
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {}"'
+export FZF_ALT_C_OPTS='--preview "tree -C {} | head -500"'
+# export FZF_COMPLETION_TRIGGER=''
+# bindkey '^T' fzf-completion
+# bindkey '^I' $fzf_default_completion
 
 . "$HOME/.cargo/env"
-
 
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.local/bin"
@@ -155,7 +211,6 @@ export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
 source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$AUTOSUGGEST"
 
