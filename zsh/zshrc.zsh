@@ -212,6 +212,8 @@ source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
+source "$dotpath/wezterm/wezterm.sh"
+
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$AUTOSUGGEST"
 
 setopt autocd
