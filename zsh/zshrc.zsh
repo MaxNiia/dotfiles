@@ -136,7 +136,7 @@ if [[ "$appearance" == "dark" ]]; then
    # Bat
    export BAT_THEME="Catppuccin Mocha"
    # Autosuggest
-   AUTOSUGGEST="fg=#cdd6f4#,bg=#313244,bold,underline"
+   AUTOSUGGEST="fg=#cdd6f4,bg=#313244,bold,underline"
 
    source "$plugins/catppuccin-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh"
 else
@@ -209,7 +209,7 @@ source "$scripts/lfs.zsh"
 # Plugins.
 export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
 source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
-source "$plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
+source "$plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
 source "$dotpath/wezterm/wezterm.sh"
