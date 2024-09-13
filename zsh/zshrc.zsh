@@ -175,6 +175,15 @@ else
    source "$plugins/catppuccin-syntax-highlighting/themes/catppuccin_latte-zsh-syntax-highlighting.zsh"
 fi
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -205,6 +214,7 @@ source "$scripts/source_venv.zsh"
 source "$scripts/tmux-sessioner.zsh"
 source "$scripts/nvim_server.zsh"
 source "$scripts/lfs.zsh"
+source "$scripts/zoxide.zsh"
 
 # Plugins.
 export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
