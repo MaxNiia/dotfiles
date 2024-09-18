@@ -200,8 +200,6 @@ export FZF_ALT_C_OPTS='--preview "tree -C {} | head -500"'
 # bindkey '^T' fzf-completion
 # bindkey '^I' $fzf_default_completion
 
-. "$HOME/.cargo/env"
-
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
@@ -215,13 +213,6 @@ ENABLE_CORRECTION="true"
 fpath=($completions $fpath)
 autoload -Uz compinit
 compinit
-
-# Scripts.
-source "$scripts/source_venv.zsh"
-source "$scripts/tmux-sessioner.zsh"
-source "$scripts/nvim_server.zsh"
-source "$scripts/lfs.zsh"
-source "$scripts/zoxide.zsh"
 
 # Plugins.
 export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
@@ -237,13 +228,27 @@ setopt autocd
 
 bindkey -v
 
+unalias z 2> /dev/null
+z() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
+alias j=z
+
 export VI_MODE_SET_CURSOR=true
 
-ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 
 function my_init() {
-   [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    . "$HOME/.cargo/env"
+
+  # Scripts.
+  source "$scripts/source_venv.zsh"
+  source "$scripts/tmux-sessioner.zsh"
+  source "$scripts/lfs.zsh"
+  source "$scripts/zoxide.zsh"
+  source "$scripts/fzf-git.sh"
 }
 
 # NOTE: Keep last.
@@ -256,11 +261,3 @@ bindkey '^[[B' history-substring-search-down
 # bindkey -M vicmd 'j' history-substring-search-down
 
 zvm_after_init_commands+=(my_init)
-
-# . /etc/profile.d/wezterm.sh &> /dev/null 2>&1
-
-# precmd () {
-#     printf "\033]7;file://%s\033\\" "$PWD"
-# }
-git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
-git config --global interactive.diffFilter "diff-so-fancy --patch"
