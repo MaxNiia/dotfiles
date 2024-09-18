@@ -190,7 +190,7 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
-
+export KEYTIMEOUT="10"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
