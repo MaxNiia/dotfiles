@@ -1,5 +1,11 @@
 #!/usr/env zsh
 
+DISABLE_AUTO_UPDATE="true"
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
@@ -28,6 +34,7 @@ if grep -q "microsoft" /proc/version &>/dev/null; then
 fi
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 export FZF_BASE=/usr/bin/fzf
 
 if [[ -n $SSH_CONNECTION ]]; then
