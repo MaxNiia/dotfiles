@@ -72,12 +72,12 @@ function get_windows_appearance {
 function check_appearance {
   if [[ "$(check_wsl)" == "wsl" ]]; then
     # WSL, get Windows appearance mode
-    mode=$(get_windows_appearance)
-    if [[ "$mode" == "0" ]]; then
-      echo "dark"
-    else
-      echo "light"
-    fi
+    # mode=$(get_windows_appearance)
+    # if [[ "$mode" == "0" ]]; then
+    echo "dark"
+    # else
+    #   echo "light"
+    # fi
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS
     mode=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
@@ -228,13 +228,6 @@ setopt autocd
 
 bindkey -v
 
-unalias z 2> /dev/null
-z() {
-  [ $# -gt 0 ] && _z "$*" && return
-  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
-}
-alias j=z
-
 export VI_MODE_SET_CURSOR=true
 
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
@@ -245,9 +238,9 @@ function my_init() {
 
   # Scripts.
   source "$scripts/source_venv.zsh"
-  source "$scripts/tmux-sessioner.zsh"
   source "$scripts/lfs.zsh"
   source "$scripts/zoxide.zsh"
+  alias cd="z"
   source "$scripts/fzf-git.sh"
 }
 
