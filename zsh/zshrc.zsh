@@ -227,7 +227,7 @@ source "$scripts/source_venv.zsh"
 source "$scripts/lfs.zsh"
 source "$scripts/fzf-git.sh"
 source "$scripts/zoxide.zsh"
-  alias cd="z"
+alias cd="z"
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$AUTOSUGGEST"
 
