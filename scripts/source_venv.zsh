@@ -10,7 +10,7 @@ _venv_completion() {
         # Skip entries that are not a directory.
         [[ -d $file ]] || continue
 
-        # Add the file without the ~/venvs/ prefix to the list of 
+        # Add the file without the ~/venvs/ prefix to the list of
         # autocomplete suggestions.
         COMPREPLY+=( $(basename "$file") )
     done

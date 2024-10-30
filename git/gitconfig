@@ -1,7 +1,17 @@
+[user]
+    name = Max Niia
+[credential "https://github.com"]
+    username = MaxNiia
+    email = muxinatorn@gmail.com
+[init]
+    templateDir = /home/max/.git-template
+    defaultBranch = main
 [core]
     excludesfile = /home/max/.gitignore
     editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
     pager = diff-so-fancy | less --tabs=4 -RFX
+[push]
+    autoSetupRemote = true
 [pull]
     rebase = true
 [fetch]
@@ -13,22 +23,20 @@
     fush = push --force-with-lease
     d = difftool
     m = mergetool
-[init]
-    templateDir = /home/max/.git-template
-    defaultBranch = main
-[push]
-    autoSetupRemote = true
-[mergetool "nvim"]
-    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[merge]
+    tool = nvimmerge
+[mergetool "nvimmerge"]
+    cmd = nvim -c 'DiffviewOpen'
 [interactive]
     diffFilter = diff-so-fancy --patch
 [rebase]
     autosquash = true
     autostash = true
-[merge]
-    tool = nvimmerge
-[mergetool "nvimmerge"]
-    cmd = nvim -c 'DiffviewOpen'
 [diff]
     tool = nvimdiff
     algorithm = histogram
@@ -53,3 +61,16 @@
     verbose = true
 [help]
     autocorrect = prompt
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
