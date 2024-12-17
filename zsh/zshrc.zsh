@@ -19,8 +19,6 @@ if grep -q "microsoft" /proc/version &>/dev/null; then
    alias nvim="env TERM=wezterm nvim"
 fi
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -219,7 +217,6 @@ compinit
 
 # Plugins.
 export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
-source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
@@ -250,6 +247,14 @@ function my_init() {
 # NOTE: Keep last.
 source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
+
+fpath+=("$plugins/pure")
+autoload -U promptinit; promptinit
+
+# turn on git stash status
+zstyle :prompt:pure:git:stash show yes
+
+prompt pure
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
