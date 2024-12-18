@@ -247,8 +247,10 @@ function my_init() {
 # NOTE: Keep last.
 source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
-
+source "$plugins/zsh-autopair/autopair.zsh"
+autopair-init
 fpath+=("$plugins/pure")
+
 autoload -U promptinit; promptinit
 
 # turn on git stash status

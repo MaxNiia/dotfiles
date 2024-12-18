@@ -34,3 +34,6 @@
 [submodule "plugins/pure"]
 	path = plugins/pure
 	url = https://github.com/sindresorhus/pure.git
+[submodule "plugins/zsh-autopair"]
+	path = plugins/zsh-autopair
+	url = https://github.com/hlissner/zsh-autopair
