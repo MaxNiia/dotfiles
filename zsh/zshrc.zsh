@@ -250,6 +250,7 @@ source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$plugins/zsh-autopair/autopair.zsh"
 autopair-init
 fpath+=("$plugins/pure")
+fpath+=("$plugins/zsh-completions/src")
 
 autoload -U promptinit; promptinit
 
