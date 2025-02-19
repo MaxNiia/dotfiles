@@ -222,13 +222,6 @@ source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
 source "$dotpath/wezterm/wezterm.sh"
 
-# Scripts.
-# source "$scripts/source_venv.zsh"
-source "$scripts/lfs.zsh"
-source "$scripts/fzf-git.sh"
-source "$scripts/zoxide.zsh"
-alias cd="z"
-
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$AUTOSUGGEST"
 
 setopt autocd
@@ -240,8 +233,13 @@ export VI_MODE_SET_CURSOR=true
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 
 function my_init() {
-   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    bindkey -r '^G'
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
     . "$HOME/.cargo/env"
+    source "$scripts/lfs.zsh"
+    source "$scripts/zoxide.zsh"
+    source "$scripts/fzf-git.sh"
+    alias cd="z"
 }
 
 # NOTE: Keep last.
