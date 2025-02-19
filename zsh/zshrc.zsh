@@ -14,6 +14,8 @@ setopt SHARE_HISTORY
 setopt APPEND_HISTORY
 setopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_DUPS
 
 if grep -q "microsoft" /proc/version &>/dev/null; then
    alias nvim="env TERM=wezterm nvim"
@@ -37,8 +39,10 @@ export FZF_BASE=/usr/bin/fzf
 
 if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
+   export VISUAL='vim'
 else
    export EDITOR='nvim'
+   export VISUAL='nvim'
 fi
 
 # fnm
@@ -228,6 +232,8 @@ setopt autocd
 
 bindkey -v
 
+set -o vi
+
 export VI_MODE_SET_CURSOR=true
 
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
@@ -256,6 +262,8 @@ autoload -U promptinit; promptinit
 zstyle :prompt:pure:git:stash show yes
 
 prompt pure
+
+alias v=nvim
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
