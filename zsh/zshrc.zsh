@@ -216,8 +216,6 @@ ENABLE_CORRECTION="true"
 
 # Completion
 fpath=($completions $fpath)
-autoload -Uz compinit
-compinit
 
 # Plugins.
 export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
@@ -253,9 +251,11 @@ source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$plugins/zsh-autopair/autopair.zsh"
 autopair-init
-fpath+=("$plugins/pure")
-fpath+=("$plugins/zsh-completions/src")
+fpath=("$plugins/pure" $fpath)
+fpath=("$plugins/zsh-completions/src" $fpath)
 
+autoload -Uz compinit
+compinit
 autoload -U promptinit; promptinit
 
 # turn on git stash status
@@ -264,6 +264,7 @@ zstyle :prompt:pure:git:stash show yes
 prompt pure
 
 alias v=nvim
+eval "$(register-python-argcomplete pipx)"
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down

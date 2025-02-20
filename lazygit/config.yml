@@ -60,6 +60,26 @@ customCommands:
     context: "localBranches"
     description: "Prune local branches no longer on its remote; (G)one."
     loadingText: "Pruning gone..."
+  - key: 'n'
+    context: 'localBranches'
+    prompts:
+      - type: 'menu'
+        title: 'What kind of branch is it?'
+        key: 'BranchType'
+        options:
+          - name: 'feature'
+            description: 'a feature branch'
+            value: 'feature'
+          - name: 'bugfix'
+            description: 'a bugfix branch'
+            value: 'bugfix'
+          - name: 'release'
+            description: 'a release branch'
+            value: 'release'
+      - type: 'input'
+        title: 'What is the new branch name?'
+        key: 'BranchName'
+        initialValue: ''
 
   # retrieved from: https://github.com/jesseduffield/lazygit/wiki/Custom-Commands-Compendium#conventional-commit
   - key: "<c-v>"
@@ -119,9 +139,17 @@ customCommands:
         title: "message"
         key: "Message"
         initialValue: ""
+      - type: "input"
+        title: "body"
+        key: "Body"
+        initialValue: ":"
+      - type: "input"
+        title: "refs"
+        key: "Refs"
+        initialValue: "refs: "
       - type: "confirm"
         key: "Confirm"
         title: "Commit"
         body: "Are you sure you want to commit?"
-    command: "git commit --message '{{.Form.Type}}{{ if .Form.Scope }}({{ .Form.Scope }}){{ end }}{{.Form.Breaking}}: {{.Form.Message}}'"
+    command: "git commit --message '{{.Form.Type}}{{ if .Form.Scope }}({{ .Form.Scope }}){{ end }}{{.Form.Breaking}}: {{.Form.Message}}' {{if .Form.Body}}(--message '{{.Form.Body}}') --message '{{.Form.Refs}}'"
     loadingText: "Creating conventional commit..."
