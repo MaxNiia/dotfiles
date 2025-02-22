@@ -1,10 +1,16 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
-curl -fsSL https://fnm.vercel.app/install | zsh
+git clone --bare https://github.com/MaxNiia/dotfiles/ "$HOME/.cfg"
 
-npm install -g diff-so-fancy
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+# Move conflicting files to backup.
+mkdir -p .config-backup &&
+    config checkout 2>&1 |
+    grep -E "\s+\." |
+        awk "{'print $1'}" |
+        xargs -I{} mv {} .config-backup/{}
 
-cargo install --locked bat
+config checkout
+
+config config --local status.showUntrackedFiles no

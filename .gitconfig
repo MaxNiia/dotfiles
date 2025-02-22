@@ -1,5 +1,6 @@
 [user]
-    name = Max Niia
+	name = Max Niia
+	email = max.emil.niia@gmail.com
 [credential "https://github.com"]
     username = MaxNiia
     email = muxinatorn@gmail.com
@@ -49,9 +50,6 @@
     prompt = false
 [difftool "nvimdiff"]
     cmd = nvim -c 'DiffviewOpen'
-[credential "https://github.com"]
-    username = MaxNiia
-    email = muxinatorn@gmail.com
 [interactive]
     diffFilter = diff-so-fancy --patch
 [color]
@@ -73,3 +71,5 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[credential]
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe

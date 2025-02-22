@@ -1,5 +1,5 @@
 # Dotfiles
 
-Collection of dotfiles for personal use.
-
-Move wezterm.sh to /etc/profile.d/
+```bash
+curl -Lks https://raw.githubusercontent.com/MaxNiia/dotfiles/refs/heads/main/init.sh | /bin/bash
+```

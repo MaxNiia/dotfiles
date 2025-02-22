@@ -1,10 +1,16 @@
-#!/usr/env zsh
+#!/usr/bin/env zsh
+
+local dotpath=$HOME
+local scripts="${dotpath}/.scripts"
+local config="${dotpath}/.config"
+local plugins="${config}/zsh"
+local completions="${dotpath}/.scripts/completion"
+
+if [[ ! -f /etc/profile.d/wezterm.sh ]]; then
+    sudo cp "$scripts/sh/wezterm.sh" /etc/profile.d/wezterm.sh
+fi
 
 DISABLE_AUTO_UPDATE="true"
-
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
@@ -20,9 +26,6 @@ setopt HIST_IGNORE_DUPS
 if grep -q "microsoft" /proc/version &>/dev/null; then
    alias nvim="env TERM=wezterm nvim"
 fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # WSL 2 specific settings.
 if grep -q "microsoft" /proc/version &>/dev/null; then
@@ -54,11 +57,6 @@ fi
 
 local AUTOSUGGEST=""
 
-local dotpath=$(dirname `dirname $0`)
-local scripts="${dotpath}/scripts"
-local plugins="${dotpath}/plugins"
-local completions="${dotpath}/completion"
-
 # Function to check if running in WSL
 function check_wsl {
   if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
@@ -69,9 +67,9 @@ function check_wsl {
 }
 
 # Function to get Windows appearance mode from WSL
-function get_windows_appearance {
-  powershell.exe -Command "Get-ItemPropertyValue -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme" 2>/dev/null | tr -d '\r'
-}
+# function get_windows_appearance {
+#   powershell.exe -Command "Get-ItemPropertyValue -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme" 2>/dev/null | tr -d '\r'
+# }
 
 # Function to check appearance mode
 function check_appearance {
@@ -195,6 +193,7 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
 export KEYTIMEOUT="10"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"
 export FZF_DEFAULT_COMMAND='fd --type file'
@@ -205,7 +204,6 @@ export FZF_ALT_C_OPTS='--preview "tree -C {} | head -500"'
 # bindkey '^T' fzf-completion
 # bindkey '^I' $fzf_default_completion
 
-export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
 alias f='nvim "$(fzf)"'
@@ -218,11 +216,9 @@ ENABLE_CORRECTION="true"
 fpath=($completions $fpath)
 
 # Plugins.
-export PATH="$PATH:$HOME/fzf-zsh-plugin/bin"
+export PATH="$PATH:$plugins/fzf-zsh-plugin/bin"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-
-source "$dotpath/wezterm/wezterm.sh"
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$AUTOSUGGEST"
 
@@ -239,20 +235,27 @@ ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 function my_init() {
     bindkey -r '^G'
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    # Set up fzf key bindings and fuzzy completion
+    source <(fzf --zsh)
     . "$HOME/.cargo/env"
-    source "$scripts/lfs.zsh"
-    source "$scripts/zoxide.zsh"
-    source "$scripts/fzf-git.sh"
+    source "$scripts/zsh/lfs.zsh"
+    source "$scripts/zsh/zoxide.zsh"
+    source "$scripts/sh/fzf-git.sh"
     alias cd="z"
+    alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
+    alias cat="bat -pp"
+    alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 }
 
 # NOTE: Keep last.
 source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$plugins/zsh-autopair/autopair.zsh"
+source "$scripts/sh/wezterm.sh"
 autopair-init
-fpath=("$plugins/pure" $fpath)
 fpath=("$plugins/zsh-completions/src" $fpath)
+fpath=("$config/pure" $fpath)
 
 autoload -Uz compinit
 compinit
