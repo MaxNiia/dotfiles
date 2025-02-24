@@ -71,5 +71,7 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
-[credential]
-	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+[include]
+    path = ~/.private/.gitconfig
+[includeIf "gitdir:~/workspace/"]
+    path = ~/workspace/.gitconfig

@@ -4,11 +4,17 @@ local dotpath=$HOME
 local scripts="${dotpath}/.scripts"
 local config="${dotpath}/.config"
 local plugins="${config}/zsh"
+local private_config="${dotpath}/.private"
 local completions="${dotpath}/.scripts/completion"
+
+if [[ ! -f "$private_config/zshrc.zsh" ]]; then
+    source "$private_config/zshrc.zsh"
+fi
 
 if [[ ! -f /etc/profile.d/wezterm.sh ]]; then
     sudo cp "$scripts/sh/wezterm.sh" /etc/profile.d/wezterm.sh
 fi
+
 
 DISABLE_AUTO_UPDATE="true"
 
@@ -273,5 +279,6 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 # bindkey -M vicmd 'k' history-substring-search-up
 # bindkey -M vicmd 'j' history-substring-search-down
+source "${HOME}/.nvimstty"
 
 zvm_after_init_commands+=(my_init)
