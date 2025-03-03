@@ -17,6 +17,9 @@
     rebase = true
 [fetch]
     prune = true
+    pruneTags = true
+[rerere]
+    enabled = true
 [alias]
     st = status
     rb = rebase
@@ -24,6 +27,14 @@
     fush = push --force-with-lease
     d = difftool
     m = mergetool
+
+    lg = log --graph --pretty=format:'%C(auto)%h%d %s %C(blue)%C(bold)%cr %C(green)%an'
+    lgf = log --graph --all --decorate --oneline --color
+    lga = log --graph --all --pretty=format:'%C(auto)%h%d %s %C(blue)%C(bold)%cr %C(green)%an'
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lgs = log --graph --pretty=format:'%C(auto)%h %C(cyan)%an %C(dim white)- %Creset%s %C(green)(%ar)'
+
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
@@ -51,6 +62,7 @@
 [submodule]
     recurse = true
 [status]
+    showUntrackedFiles = all
     submoduleSummary = false
 [interactive]
     diffFilter = diff-so-fancy --patch
@@ -58,6 +70,7 @@
     ui = true
 [commit]
     verbose = true
+    status = true
 [help]
     autocorrect = prompt
 [color "diff-highlight"]
