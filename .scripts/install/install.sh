@@ -18,7 +18,8 @@ apt_install \
     gettext \
     curl \
     build-essential \
-    libreadline-dev
+    libreadline-dev \
+    diffstat
 
 source "$INSTALL/installers.sh"
 
@@ -51,5 +52,5 @@ cargo_install lsd
 cargo_install zoxide
 pipx_install cmake "3.31.4"
 
-source "$INSTALL/neovim.sh"
-source "$INSTALL/helix.sh"
+source "$HOME/.config/nvim/scripts/init.sh"
+source "$HOME/.config/helix/scripts/init.sh"

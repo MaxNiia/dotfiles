@@ -2,13 +2,6 @@
 
 set -e
 
-SCRIPTS="$HOME/.scripts"
-INSTALL="$SCRIPTS/install"
-WORKSPACE="$HOME/workspace"
-APPLICATIONS="$WORKSPACE/applications"
-DEV="$WORKSPACE/dev"
-CONFIG=${XDG_CONFIG_HOME:-"$HOME/.config"}
-
 apt_install() {
     if [ $# -eq 0 ]; then
         echo "No arguments provided to '$FUNCNAME'."
@@ -18,9 +11,8 @@ apt_install() {
     apt_upgrade=()
     apt_install=()
 
-    for var in "$@"
-    do
-        if ! command -v $var &>/dev/null ; then
+    for var in "$@"; do
+        if ! command -v $var &>/dev/null; then
             echo "Installing '$var'."
             apt_install+=("$var")
         else
@@ -56,7 +48,7 @@ npm_install() {
         exit 2
     fi
 
-    if  ! command -v $1 &>/dev/null ; then
+    if ! command -v $1 &>/dev/null; then
         echo "Installing '$1'."
         npm install -g $1
     else
