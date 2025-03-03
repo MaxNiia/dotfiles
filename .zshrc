@@ -7,7 +7,7 @@ local plugins="${config}/zsh"
 local private_config="${dotpath}/.private"
 local completions="${dotpath}/.scripts/completion"
 
-if [[ ! -f "$private_config/zshrc.zsh" ]]; then
+if [[ -f "$private_config/zshrc.zsh" ]]; then
     source "$private_config/zshrc.zsh"
 fi
 
@@ -225,6 +225,7 @@ fpath=($completions $fpath)
 export PATH="$PATH:$plugins/fzf-zsh-plugin/bin"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+export HELIX_RUNTIME=~/.helix/runtime
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$AUTOSUGGEST"
 

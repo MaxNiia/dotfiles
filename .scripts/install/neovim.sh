@@ -2,6 +2,10 @@
 
 set -e
 
+SCRIPTS="$HOME/.scripts"
+INSTALL="$SCRIPTS/install"
+source "$INSTALL/utils.sh"
+
 if [ $USER != "max" ]; then
     apt_install gettext curl build-essential unzip libreadline-dev
 

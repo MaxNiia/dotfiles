@@ -52,3 +52,4 @@ cargo_install zoxide
 pipx_install cmake "3.31.4"
 
 source "$INSTALL/neovim.sh"
+source "$INSTALL/helix.sh"
