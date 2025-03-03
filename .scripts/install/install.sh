@@ -2,6 +2,10 @@
 
 set -e
 
+WORKSPACE="$HOME/workspace"
+APPLICATIONS="$WORKSPACE/applications"
+DEV="$WORKSPACE/dev"
+CONFIG="$HOME/.config"
 SCRIPTS="$HOME/.scripts"
 INSTALL="$SCRIPTS/install"
 source "$INSTALL/utils.sh"
