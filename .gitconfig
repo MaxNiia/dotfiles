@@ -52,7 +52,7 @@
         tool = nvimdiff
         mnemonicprefix = true  # Helps readability in diffs
         algorithm = histogram
-        submodule = log
+        submodule = short
 [difftool]
         prompt = true
 [difftool "nvimdiff"]
@@ -62,7 +62,7 @@
         autosquash = true
         autostash = true
 [submodule]
-        recurse = true
+        recurse = false
 [status]
         showUntrackedFiles = all
         submoduleSummary = false

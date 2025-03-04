@@ -251,8 +251,8 @@ function my_init() {
     alias cd="z"
     alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
     alias cat="bat -pp"
-    alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+    # alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+    # alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 }
 
 # NOTE: Keep last.
