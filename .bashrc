@@ -8,7 +8,9 @@ case $- in
 *) return ;;
 esac
 
-if [[ ! -f "$HOME/.private/bashrc.bash" ]]; then
+export XDG_CONFIG="$HOME"
+
+if [[ -f "$HOME/.private/bashrc.bash" ]]; then
     source "$HOME/.private/bashrc.bash"
 fi
 

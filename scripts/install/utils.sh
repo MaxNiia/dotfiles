@@ -4,7 +4,7 @@ set -e
 
 apt_install() {
     if [ $# -eq 0 ]; then
-        echo "No arguments provided to '$FUNCNAME'."
+        echo "No arguments provided to '${FUNCNAME[0]}'."
         exit 2
     fi
 
@@ -28,7 +28,7 @@ apt_install() {
 
 pipx_install() {
     if [ $# -lt 1 ]; then
-        echo "No arguments provided to '$FUNCNAME'."
+        echo "No arguments provided to '${FUNCNAME[0]}'."
         exit 2
     fi
 
@@ -44,7 +44,7 @@ pipx_install() {
 
 npm_install() {
     if [ ! $# -eq 1 ]; then
-        echo "No arguments provided to '$FUNCNAME'."
+        echo "No arguments provided to '${FUNCNAME[0]}'."
         exit 2
     fi
 
@@ -58,21 +58,22 @@ npm_install() {
 
 create_dir() {
     if [ ! $# -eq 1 ]; then
-        echo "'$FUNCNAME' required a directory input."
+        echo "'${FUNCNAME[0]}' required a directory input."
         exit 2
     fi
 
     if [ ! -d "$1" ]; then
-        mkdir $1
+        mkdir "$1"
         echo "$1 created."
     fi
 }
 
 git_update() {
     if [ ! $# -gt 1 ]; then
-        echo "Not enough arguments provided to '$FUNCNAME'."
+        echo "Not enough arguments provided to '${FUNCNAME[0]}'."
         exit 2
     fi
+    
 
     if [ ! -d "$2" ]; then
         git clone "$1" "$2"
@@ -91,7 +92,7 @@ git_update() {
 
 cargo_install() {
     if [ ! $# -eq 1 ]; then
-        echo "No arguments provided to '$FUNCNAME'."
+        echo "No arguments provided to '${FUNCNAME[0]}'."
         exit 2
     fi
 

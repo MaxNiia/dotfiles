@@ -1,11 +1,13 @@
 #!/usr/bin/env zsh
 
+export XDG_CONFIG="$HOME/.config"
+
 local dotpath=$HOME
-local scripts="${dotpath}/.scripts"
-local config="${dotpath}/.config"
+local scripts="${dotpath}/scripts"
+local config="${XDG_CONFIG}"
 local plugins="${config}/zsh"
 local private_config="${dotpath}/.private"
-local completions="${dotpath}/.scripts/completion"
+local completions="${scripts}/completion"
 
 if [[ -f "$private_config/zshrc.zsh" ]]; then
     source "$private_config/zshrc.zsh"
