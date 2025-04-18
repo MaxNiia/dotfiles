@@ -49,7 +49,7 @@ fzf_version=b89c77ec9a1931ec1eea9d57afe5321045feabea
     cd "$FZF_DIR"
     if [ ! "$fzf_version" = "$(git rev-parse HEAD)" ]; then
         git_update https://github.com/junegunn/fzf.git "$FZF_DIR" $fzf_version
-        "$FZF_DIR/install"
+        "install"
     fi
 )
 

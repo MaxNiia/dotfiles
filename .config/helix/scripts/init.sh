@@ -2,16 +2,16 @@
 
 set -e
 
-SCRIPTS="$HOME/.scripts"
+SCRIPTS="$HOME/scripts"
 INSTALL="$SCRIPTS/install"
 source "$INSTALL/utils.sh"
 
-if [ $USER != "max" ]; then
+if [ "$USER" != "max" ]; then
     # Install installers.
-    source $SCRIPTS/installers.sh
+    source "$SCRIPTS/installers.sh"
 fi
 
-HELIX_DIR="$HOME/.helix"
+HELIX_DIR="$HOME/applications/helix"
 helix_version="1a28999002e907f79105d64fc05b8a7c37f4792f"
 (
     if [ ! -d "$HELIX_DIR" ]; then
