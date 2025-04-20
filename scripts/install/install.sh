@@ -54,7 +54,9 @@ fzf_version=b89c77ec9a1931ec1eea9d57afe5321045feabea
 )
 
 npm_install diff-so-fancy
+npm_install @bazel/bazelisk
 cargo_install bat
+cargo_install git-delta
 bat cache --build
 cargo_install lsd
 cargo_install zoxide

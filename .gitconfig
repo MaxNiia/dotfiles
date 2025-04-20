@@ -10,7 +10,7 @@
 [core]
         excludesfile = /home/max/.gitignore
         editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
-        pager = diff-so-fancy | less --tabs=4 -RFX
+        pager = delta
         fileMode = true
 
 [push]
@@ -43,6 +43,7 @@
         process = git-lfs filter-process
         required = true
 [merge]
+        conflictstyle = zdiff3
         tool = nvimmerge
 [mergetool]
         prompt = true
@@ -67,7 +68,13 @@
         showUntrackedFiles = all
         submoduleSummary = false
 [interactive]
-        diffFilter = diff-so-fancy --patch
+        diffFilter = delta --color-only
+[include]
+	path = ~/.config/delta/themes/catppuccin.gitconfig
+[delta]
+        navigate = true
+        dark = true
+        features = catppuccin-mocha
 [color]
         ui = true
 [commit]

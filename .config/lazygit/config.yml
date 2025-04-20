@@ -42,7 +42,7 @@ git:
     # diff-so-fancy
     # delta --dark --paging=never
     # ydiff -p cat -s --wrap --width={{columnWidth}}
-    pager: "diff-so-fancy"
+    pager: "delta --dark --paging=never"
 customCommands:
   - key: "<c-p>"
     command: "git remote prune {{.SelectedRemote.Name}}"
