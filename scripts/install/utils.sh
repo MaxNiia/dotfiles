@@ -73,7 +73,6 @@ git_update() {
         echo "Not enough arguments provided to '${FUNCNAME[0]}'."
         exit 2
     fi
-    
 
     if [ ! -d "$2" ]; then
         git clone "$1" "$2"

@@ -213,6 +213,8 @@ export FZF_ALT_C_OPTS='--preview "tree -C {} | head -500"'
 # bindkey '^I' $fzf_default_completion
 
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/applications/magick"
+
 
 alias f='nvim "$(fzf)"'
 alias tmux="TERM=screen-256color-bce tmux"

@@ -37,22 +37,6 @@ if [ ! "$shell" = "/usr/bin/zsh" ]; then
     sudo chsh -s "$(command -v zsh)" "${USER}"
 fi
 
-# Make fzf only install if changed.
-FZF_DIR="fzf"
-fzf_version=b89c77ec9a1931ec1eea9d57afe5321045feabea
-(
-    cd "$APPLICATIONS"
-    if [ ! -d "$FZF_DIR" ]; then
-        git_update https://github.com/junegunn/fzf.git "$FZF_DIR" $fzf_version
-    fi
-
-    cd "$FZF_DIR"
-    if [ ! "$fzf_version" = "$(git rev-parse HEAD)" ]; then
-        git_update https://github.com/junegunn/fzf.git "$FZF_DIR" $fzf_version
-        "install"
-    fi
-)
-
 npm_install diff-so-fancy
 npm_install @bazel/bazelisk
 cargo_install bat
@@ -61,6 +45,11 @@ bat cache --build
 cargo_install lsd
 cargo_install zoxide
 pipx_install cmake "3.31.4"
+
+if [[ $(grep -i Microsoft /proc/version) ]]; then
+    apt_install wslu
+fi
+
 
 # shellcheck source=../../.config/nvim/script/init.sh
 source "$CONFIG/nvim/scripts/init.sh"
