@@ -43,3 +43,6 @@
 [submodule ".config/plugins/fzf-zsh-plugin"]
 	path = .config/zsh/fzf-zsh-plugin
 	url = https://github.com/unixorn/fzf-zsh-plugin
+[submodule ".config/wezterm"]
+	path = .config/wezterm
+	url = https://github.com/maxniia/wezterm
