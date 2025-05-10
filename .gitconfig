@@ -4,6 +4,8 @@
 [credential "https://github.com"]
         username = MaxNiia
         email = muxinatorn@gmail.com
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
 [init]
         templateDir = /home/max/.git-template
         defaultBranch = main
@@ -43,7 +45,7 @@
         process = git-lfs filter-process
         required = true
 [merge]
-        conflictstyle = zdiff3
+        conflictstyle = diff3
         tool = nvimmerge
 [mergetool]
         prompt = true
