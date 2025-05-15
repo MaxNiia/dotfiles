@@ -30,6 +30,7 @@ apt_install \
 
 # shellcheck source=./installers.sh
 source "$INSTALL/installers.sh"
+installers_install
 
 # Setup zsh
 shell="$SHELL"
