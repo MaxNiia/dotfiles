@@ -41,7 +41,6 @@ fi
 npm_install diff-so-fancy
 npm_install @bazel/bazelisk
 cargo_install bat
-cargo_install git-delta
 bat cache --build
 cargo_install lsd
 cargo_install zoxide
