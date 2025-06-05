@@ -8,7 +8,7 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-if [[ ! -f "$HOME/.private/profile.bash" ]]; then
+if [[ -f "$HOME/.private/profile.bash" ]]; then
     source "$HOME/.private/profile.bash"
 fi
 
@@ -33,3 +33,6 @@ fi
 # Created by `pipx` on 2025-02-22 09:40:11
 export PATH="$PATH:/home/max/.local/bin"
 . "$HOME/.cargo/env"
+
+. "$HOME/.local/bin/env"
+PATH="$PATH:/opt/rdk/bin"

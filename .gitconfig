@@ -4,7 +4,6 @@
 [credential "https://github.com"]
         username = MaxNiia
         email = muxinatorn@gmail.com
-	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [init]
         templateDir = /home/max/.git-template
@@ -101,3 +100,11 @@
         path = ~/.private/.gitconfig
 [includeIf "gitdir:~/workspace/"]
         path = ~/workspace/.gitconfig
+[includeIf "gitdir:/media/max/workspace/"]
+        path = /media/max/workspace/.gitconfig
+[credential]
+	helper = 
+	helper = /usr/local/bin/git-credential-manager
+	credentialStore = secretservice
+[credential "https://dev.azure.com"]
+	useHttpPath = true

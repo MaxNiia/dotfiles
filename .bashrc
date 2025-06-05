@@ -138,3 +138,9 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+. "$HOME/.local/bin/env"
+source "/home/max/.nvimstty"
+if [ -f /etc/rdk/rdk-environment ]; then
+   source /etc/rdk/rdk-environment
+fi
