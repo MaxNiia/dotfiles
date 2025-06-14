@@ -36,12 +36,10 @@
 
 [push]
         autoSetupRemote = true
-        default = current
         followTags = true
 
 [pull]
         rebase = true
-        default = current
 
 [fetch]
         prune = true
