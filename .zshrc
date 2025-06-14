@@ -216,9 +216,6 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/applications/magick"
 
 
-alias f='nvim "$(fzf)"'
-alias tmux="TERM=screen-256color-bce tmux"
-alias ls=lsd
 
 ENABLE_CORRECTION="true"
 
@@ -255,6 +252,20 @@ function my_init() {
     alias cd="z"
     alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
     alias cat="bat -pp"
+    alias f='nvim "$(fzf)"'
+    alias tmux="TERM=screen-256color-bce tmux"
+    alias ls=lsd
+    alias gs="git status --short"
+    alias gd="git diff"
+    alias ga="git add"
+    alias gap="git add --patch"
+    alias gc="git commit"
+    alias gp="git push"
+    alias gu="git pull"
+    alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n'"
+    alias gb="git switch"
+    alias gi="git init"
+    alias gcl="git clone"
     # alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
     # alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 }

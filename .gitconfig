@@ -1,28 +1,55 @@
 [user]
         name = Max Niia
         email = max.emil.niia@gmail.com
+
 [credential "https://github.com"]
         username = MaxNiia
         email = muxinatorn@gmail.com
 	helper = !/usr/bin/gh auth git-credential
+
 [init]
         templateDir = /home/max/.git-template
         defaultBranch = main
+
 [core]
-        excludesfile = /home/max/.gitignore
+        excludesfile = /home/max/.config/git/ignore
         editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
         pager = delta
         fileMode = true
+        compression = 9
+        whitespace = error
+        preloadindex = true
+
+[branch]
+        sort = -committerdate
+
+[tag]
+        sort = -taggerdate
+
+[advice]
+        addEmptyPathspec = false
+        pushNonFastForward = false
+        statusHints = false
+
+[url "https://github.com/"]
+        insteadOf = "gh/"
 
 [push]
         autoSetupRemote = true
+        default = current
+        followTags = true
+
 [pull]
         rebase = true
+        default = current
+
 [fetch]
         prune = true
         pruneTags = true
+
 [rerere]
         enabled = true
+
 [alias]
         st = status
         rb = rebase
@@ -38,6 +65,16 @@
         lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
         lgs = log --graph --pretty=format:'%C(auto)%h %C(cyan)%an %C(dim white)- %Creset%s %C(green)(%ar)'
 
+[log]
+        abbrevCommit = true
+        graphColors = blue,yellow,cyan,magenta,green,red
+
+[color "decorate"]
+        HEAD = red
+        branch = blue
+        tag = yellow
+        remoteBranch = magenta
+
 [filter "lfs"]
         clean = git-lfs clean -- %f
         smudge = git-lfs smudge -- %f
@@ -48,46 +85,67 @@
         tool = nvimmerge
 [mergetool]
         prompt = true
+
 [mergetool "nvimmerge"]
         cmd = nvim -c "DiffviewOpen  -- %LOCAL% %BASE% %REMOTE%"
+
 [diff]
+        context = 3
+        renames = copies
+        interHunkContext = 10
         tool = nvimdiff
         mnemonicprefix = true  # Helps readability in diffs
         algorithm = histogram
         submodule = short
+
 [difftool]
         prompt = true
+
 [difftool "nvimdiff"]
         cmd = nvim -c "DiffviewOpen  -- %LOCAL% %REMOTE%"
 
 [rebase]
         autosquash = true
         autostash = true
+        missingCommitsCheck = warn
+
 [submodule]
         recurse = false
+
 [status]
+        branch = true
+        showStash = true
         showUntrackedFiles = all
         submoduleSummary = false
+
 [interactive]
+        singlekey = true
         diffFilter = delta --color-only
+
 [include]
 	path = ~/.config/delta/themes/catppuccin.gitconfig
+
 [delta]
         navigate = true
         dark = true
         features = catppuccin-mocha
+
 [color]
         ui = true
+
 [commit]
         verbose = true
         status = true
+
 [help]
         autocorrect = prompt
+
 [color "diff-highlight"]
         oldNormal = red bold
         oldHighlight = red bold 52
         newNormal = green bold
         newHighlight = green bold 22
+
 [color "diff"]
         meta = 11
         frag = magenta bold
@@ -96,8 +154,10 @@
         old = red bold
         new = green bold
         whitespace = red reverse
+
 [include]
         path = ~/.private/.gitconfig
+
 [includeIf "gitdir:~/workspace/"]
         path = ~/workspace/.gitconfig
 [includeIf "gitdir:/media/max/workspace/"]
