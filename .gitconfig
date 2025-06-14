@@ -163,8 +163,7 @@
 [includeIf "gitdir:/media/max/workspace/"]
         path = /media/max/workspace/.gitconfig
 [credential]
-	helper = 
-	helper = /usr/local/bin/git-credential-manager
+	; helper = /usr/local/bin/git-credential-manager
 	credentialStore = secretservice
 [credential "https://dev.azure.com"]
 	useHttpPath = true
