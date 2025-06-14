@@ -12,7 +12,7 @@
         defaultBranch = main
 
 [core]
-        excludesfile = /home/max/.config/git/ignore
+        excludesfile = /home/max/.gitignore
         editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
         pager = delta
         fileMode = true
