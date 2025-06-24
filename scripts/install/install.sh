@@ -60,3 +60,10 @@ curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/sh
 echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
 sudo chmod 644 /usr/share/keyrings/wezterm-fury.gpg
 apt_install wezterm-nightly
+
+
+# Yazi
+apt_install p7zip-full
+apt_install p7zip-rar
+apt_install ffmpeg
+cargo_install --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
