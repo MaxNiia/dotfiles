@@ -16,7 +16,7 @@ create_dir "$WORKSPACE"
 create_dir "$APPLICATIONS"
 create_dir "$DEV"
 create_dir "$CONFIG"
-create_dir "$NOTES"
+reate_dir "$NOTES"
 
 apt_install \
     git \
@@ -66,4 +66,7 @@ apt_install wezterm-nightly
 apt_install p7zip-full
 apt_install p7zip-rar
 apt_install ffmpeg
+apt_install jq
+apt_install poppler-utils
+cargo_install resvg
 cargo_install --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
