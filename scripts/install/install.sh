@@ -16,7 +16,7 @@ create_dir "$WORKSPACE"
 create_dir "$APPLICATIONS"
 create_dir "$DEV"
 create_dir "$CONFIG"
-reate_dir "$NOTES"
+create_dir "$NOTES"
 
 apt_install \
     git \
