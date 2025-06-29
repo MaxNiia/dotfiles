@@ -32,7 +32,10 @@ fi
 
 # Created by `pipx` on 2025-02-22 09:40:11
 export PATH="$PATH:/home/max/.local/bin"
-. "$HOME/.cargo/env"
+if [ -f "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+fi
 
-. "$HOME/.local/bin/env"
-PATH="$PATH:/opt/rdk/bin"
+if [ -f "$HOME/.local/bin/env" ]; then
+    source "$HOME/.local/bin/env"
+fi

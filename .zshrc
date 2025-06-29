@@ -300,4 +300,6 @@ source "${HOME}/.nvimstty"
 zvm_after_init_commands+=(my_init)
 source "/home/max/.nvimstty" &> /dev/null
 
-. "$HOME/.local/bin/env"
+if [[ -f "$HOME/.local/bin/env" ]]; then
+    source "$HOME/.local/bin/env"
+fi
