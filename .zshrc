@@ -31,9 +31,9 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_DUPS
 
-if grep -q "microsoft" /proc/version &>/dev/null; then
-   alias nvim="env TERM=wezterm nvim"
-fi
+# if grep -q "microsoft" /proc/version &>/dev/null; then
+#    alias nvim="env TERM=wezterm nvim"
+# fi
 
 # WSL 2 specific settings.
 if grep -q "microsoft" /proc/version &>/dev/null; then
@@ -253,7 +253,7 @@ function my_init() {
     alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
     alias cat="bat -pp"
     alias f='nvim "$(fzf)"'
-    alias tmux="TERM=screen-256color-bce tmux"
+    # alias tmux="TERM=screen-256color-bce tmux"
     alias ls=lsd
     alias gs="git status --short"
     alias gd="git diff"
