@@ -32,6 +32,7 @@ gui:
 
   nerdFontsVersion: "3"
 
+  showDivergenceFromBaseBranch: onlyArrow
 git:
   # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
   paging:
@@ -42,7 +43,14 @@ git:
     # diff-so-fancy
     # delta --dark --paging=never
     # ydiff -p cat -s --wrap --width={{columnWidth}}
-    pager: "delta --dark --paging=never"
+    pagers: ["delta --dark --paging=never"]
+    branchPrefix: "feature/"
+    os:
+      edit: "$EDITOR {{filename}}"
+      editAtLine: "$EDITOR {{filename}} +{{line}}"
+      editAtLineAndWait: "$EDITOR {{filename}} +{{line}}"
+      editInTerminal: true
+      open: "$EDITOR {{filename}}"
 customCommands:
   - key: "<c-p>"
     command: "git remote prune {{.SelectedRemote.Name}}"

@@ -63,6 +63,8 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
+eval "$(direnv hook zsh)"
+
 local AUTOSUGGEST=""
 
 # Function to check if running in WSL
@@ -252,7 +254,7 @@ function my_init() {
     alias cd="z"
     alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
     alias cat="bat -pp"
-    alias f='nvim "$(fzf)"'
+    alias f='$EDITOR "$(fzf)"'
     # alias tmux="TERM=screen-256color-bce tmux"
     alias ls=lsd
     alias gs="git status --short"
@@ -266,6 +268,7 @@ function my_init() {
     alias gb="git switch"
     alias gi="git init"
     alias gcl="git clone"
+    alias tree="ls --tree"
     # alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
     # alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 }
