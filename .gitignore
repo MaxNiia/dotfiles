@@ -4,3 +4,4 @@ compile_commands.json
 .lazy.lua
 .nvim.lua
 .coredump
+.venv
