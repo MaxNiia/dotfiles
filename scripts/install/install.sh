@@ -69,4 +69,4 @@ apt_install ffmpeg
 apt_install jq
 apt_install poppler-utils
 cargo_install resvg
-cargo_install --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
+cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
