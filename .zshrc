@@ -13,9 +13,9 @@ if [[ -f "$private_config/zshrc.zsh" ]]; then
     source "$private_config/zshrc.zsh"
 fi
 
-if [[ ! -f /etc/profile.d/wezterm.sh ]]; then
-    sudo cp "$scripts/sh/wezterm.sh" /etc/profile.d/wezterm.sh
-fi
+# if [[ ! -f /etc/profile.d/wezterm.sh ]]; then
+#     sudo cp "$scripts/sh/wezterm.sh" /etc/profile.d/wezterm.sh
+# fi
 
 
 DISABLE_AUTO_UPDATE="true"
@@ -277,7 +277,7 @@ function my_init() {
 source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$plugins/zsh-autopair/autopair.zsh"
-source "$scripts/sh/wezterm.sh"
+# source "$scripts/sh/wezterm.sh"
 autopair-init
 fpath=("$plugins/zsh-completions/src" $fpath)
 fpath=("$config/pure" $fpath)
