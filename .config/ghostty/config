@@ -46,3 +46,10 @@ window-decoration = false
 # Other
 copy-on-select = clipboard
 shell-integration-features = cursor,sudo,no-title
+app-notifications = no-clipboard-copy
+
+# Remove opacity
+unfocused-split-opacity = 1
+
+# term
+term=xterm-ghostty
