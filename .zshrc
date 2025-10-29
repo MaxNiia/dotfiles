@@ -13,11 +13,6 @@ if [[ -f "$private_config/zshrc.zsh" ]]; then
     source "$private_config/zshrc.zsh"
 fi
 
-# if [[ ! -f /etc/profile.d/wezterm.sh ]]; then
-#     sudo cp "$scripts/sh/wezterm.sh" /etc/profile.d/wezterm.sh
-# fi
-
-
 DISABLE_AUTO_UPDATE="true"
 
 HISTFILE=~/.zsh_history
@@ -31,15 +26,14 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_DUPS
 
-# if grep -q "microsoft" /proc/version &>/dev/null; then
-#    alias nvim="env TERM=wezterm nvim"
-# fi
-
 # WSL 2 specific settings.
 if grep -q "microsoft" /proc/version &>/dev/null; then
     # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
     export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
 
+    if [[ ! -f /etc/profile.d/wezterm.sh ]]; then
+        sudo cp "$scripts/sh/wezterm.sh" /etc/profile.d/wezterm.sh
+    fi
     # Allows your gpg passphrase prompt to spawn (useful for signing commits).
     # export GPG_TTY=$(tty)
 fi
@@ -67,50 +61,13 @@ eval "$(direnv hook zsh)"
 
 local AUTOSUGGEST=""
 
-# Function to check if running in WSL
-function check_wsl {
-  if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-    echo "wsl"
-  else
-    echo "not_wsl"
-  fi
-}
-
-# Function to get Windows appearance mode from WSL
-# function get_windows_appearance {
-#   powershell.exe -Command "Get-ItemPropertyValue -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme" 2>/dev/null | tr -d '\r'
-# }
-
 # Function to check appearance mode
 function check_appearance {
-  if [[ "$(check_wsl)" == "wsl" ]]; then
-    # WSL, get Windows appearance mode
-    # mode=$(get_windows_appearance)
-    # if [[ "$mode" == "0" ]]; then
-    echo "dark"
-    # else
-    #   echo "light"
-    # fi
-  elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
-    mode=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
-    if [[ "$mode" == "Dark" ]]; then
-      echo "dark"
+    if [[ -n "${NVIM_BACKGROUND:-}" ]]; then
+      echo "$NVIM_BACKGROUND"
     else
       echo "light"
     fi
-  elif command -v gsettings > /dev/null 2>&1; then
-    # GNOME (Linux)
-    theme=$(gsettings get org.gnome.desktop.interface gtk-theme)
-    if [[ "$theme" =~ "dark" ]]; then
-      echo "dark"
-    else
-      echo "light"
-    fi
-  else
-    # Default to light mode if detection fails
-    echo "light"
-  fi
 }
 
 local appearance=$(check_appearance)
@@ -159,6 +116,11 @@ if [[ "$appearance" == "dark" ]]; then
    AUTOSUGGEST="fg=#cdd6f4,bg=#313244,bold,underline"
 
    source "$plugins/catppuccin-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh"
+
+   alias lazygit='lazygit --use-config-file="/home/max/.config/lazygit/config.yml,/home/max/.config/lazygit/mocha.yml"'
+
+   sed -i "s/dark = false/dark = true/g"  ~/.gitconfig
+   sed -i "s/features = catppuccin-latte/features = catppuccin-mocha/g"  ~/.gitconfig
 else
    # Latte
    # FZF
@@ -193,6 +155,11 @@ else
    AUTOSUGGEST="fg=#4c4f69,bg=#ccd0da,bold,underline"
 
    source "$plugins/catppuccin-syntax-highlighting/themes/catppuccin_latte-zsh-syntax-highlighting.zsh"
+
+   alias lazygit='lazygit --use-config-file="/home/max/.config/lazygit/config.yml,/home/max/.config/lazygit/latte.yml"'
+
+   sed -i "s/dark = true/dark = false/g"  ~/.gitconfig
+   sed -i "s/features = catppuccin-mocha/features = catppuccin-latte/g"  ~/.gitconfig
 fi
 
 function y() {

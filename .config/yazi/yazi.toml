@@ -1,0 +1,19 @@
+[mgr]
+linemode = "none"
+ratio = [1, 2, 3]
+sort_sensitive = true
+sort_reverse = false
+sort_dir_first = true
+sort_by = "natural"
+show_hidden = false
+scrolloff = 0
+
+[preview]
+wrap = "yes"
+tab_size = 2
+
+[opener]
+edit = [
+	{ run = '$EDITOR "$@"', block = true, for = "unix" },
+	{ run = "%EDITOR% %*",  block = true, for = "windows" },
+]
