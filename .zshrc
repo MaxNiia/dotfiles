@@ -62,11 +62,23 @@ eval "$(direnv hook zsh)"
 local AUTOSUGGEST=""
 
 # Function to check appearance mode
-function check_appearance {
+function check_appearance() {
+    if [ -e gsettings ]; then
+        if [ "$(gsettings get org.gnome.desktop.interface color-scheme)" = "'prefer-dark'" ]; then
+            echo "dark"
+            return
+        elif [ "$(gsettings get org.gnome.desktop.interface color-scheme)" = "'default'" ]; then
+            echo "light"
+            return
+        fi
+    fi
+    # wezterm/wsl fallback
     if [[ -n "${NVIM_BACKGROUND:-}" ]]; then
       echo "$NVIM_BACKGROUND"
+      return
     else
       echo "light"
+      return
     fi
 }
 
@@ -121,6 +133,9 @@ if [[ "$appearance" == "dark" ]]; then
 
    sed -i "s/dark = false/dark = true/g"  ~/.gitconfig
    sed -i "s/features = catppuccin-latte/features = catppuccin-mocha/g"  ~/.gitconfig
+
+   export NVIM_BACKGROUND="dark"
+   export LS_COLORS="$(vivid generate catppuccin-mocha)"
 else
    # Latte
    # FZF
@@ -160,6 +175,9 @@ else
 
    sed -i "s/dark = true/dark = false/g"  ~/.gitconfig
    sed -i "s/features = catppuccin-mocha/features = catppuccin-latte/g"  ~/.gitconfig
+
+   export NVIM_BACKGROUND="light"
+   export LS_COLORS="$(vivid generate catppuccin-latte)"
 fi
 
 function y() {
