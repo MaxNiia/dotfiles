@@ -8,7 +8,7 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-if [[ -f "$HOME/.private/profile.bash" ]]; then
+if [ -f "$HOME/.private/profile.bash" ]; then
     source "$HOME/.private/profile.bash"
 fi
 
@@ -33,9 +33,12 @@ fi
 # Created by `pipx` on 2025-02-22 09:40:11
 export PATH="$PATH:/home/max/.local/bin"
 if [ -f "$HOME/.cargo/env" ]; then
-    source "$HOME/.cargo/env"
+    source $HOME/.cargo/env
 fi
 
 if [ -f "$HOME/.local/bin/env" ]; then
-    source "$HOME/.local/bin/env"
+    . "$HOME/.cargo/env"
 fi
+
+export XCURSOR_SIZE=48
+export XCURSOR_THEME="catppuccin-latte-pink-cursors"

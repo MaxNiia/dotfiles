@@ -165,3 +165,5 @@
 	credentialStore = secretservice
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[inite]
+	templateDir = /home/max/.config/git/template

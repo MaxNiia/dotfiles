@@ -3,8 +3,8 @@ font-family = "IosevkaTerm Nerd Font Mono"
 font-family-bold = "IosevkaTerm Nerd Font Mono"
 font-family-italic = "IosevkaTerm Nerd Font Mono"
 font-family-bold-italic = "IosevkaTerm Nerd Font Mono"
-font-size = 15
-adjust-underline-position = 4
+# font-feature = liga, ss09, cv02, cv05
+font-size = 10
 
 # Mouse
 mouse-hide-while-typing = true
@@ -14,42 +14,62 @@ theme = light:catppuccin-latte.conf,dark:catppuccin-mocha.conf
 cursor-invert-fg-bg = true
 background-opacity = 1.0
 window-theme = ghostty
+adjust-cursor-thickness = 180%
 
 # KeyBindings
-keybind = clear
-keybind = ctrl+shift+h=goto_split:left
-keybind = ctrl+shift+j=goto_split:bottom
-keybind = ctrl+shift+k=goto_split:top
-keybind = ctrl+shift+l=goto_split:right
-keybind = super+shift+t=new_tab
-keybind = shift+ctrl+tab=previous_tab
-keybind = ctrl+tab=next_tab
-keybind = super+shift+comma=move_tab:-1
-keybind = super+shift+period=move_tab:1
-keybind = super+shift+c=copy_to_clipboard
-keybind = super+shift+v=paste_from_clipboard
-keybind = super+shift+enter=new_split:auto
-keybind = super+shift+i=inspector:toggle
-keybind = super+shift+m=toggle_split_zoom
-keybind = super+shift+r=reload_config
-keybind = super+shift+s=write_screen_file:open
-keybind = super+shift+w=close_surface
+keybind = shift+ctrl+alt+j=resize_split:down,10
+keybind = shift+ctrl+alt+h=resize_split:left,10
+keybind = shift+ctrl+alt+l=resize_split:right,10
+keybind = shift+ctrl+alt+k=resize_split:up,10
+keybind = alt+one=goto_tab:1
+keybind = alt+two=goto_tab:2
+keybind = alt+three=goto_tab:3
+keybind = alt+four=goto_tab:4
+keybind = alt+five=goto_tab:5
+keybind = alt+shift+t=new_tab
+keybind = alt+shift+comma=reload_config
+keybind = alt+shift+q=close_surface
+keybind = alt+shift+i=inspector:toggle
+keybind = alt+equal=increase_font_size:1
+keybind = alt+minus=decrease_font_size:1
+keybind = alt+zero=reset_font_size
+keybind = alt+shift+v=new_split:right
+keybind = alt+shift+s=new_split:down
+keybind = alt+shift+k=goto_split:top
+keybind = alt+shift+j=goto_split:bottom
+keybind = alt+shift+h=goto_split:left
+keybind = alt+shift+l=goto_split:right
+keybind = alt+shift+c=copy_to_clipboard
+keybind = alt+shift+b=write_screen_file:paste
+keybind = alt+shift+enter=toggle_fullscreen
+keybind = alt+shift+z=toggle_split_zoom
+
+confirm-close-surface = false
 
 # Window
 gtk-single-instance = true
 gtk-tabs-location = bottom
 gtk-wide-tabs = false
-window-padding-y = 2,0
+gtk-toolbar-style = flat
 window-padding-balance = true
 window-decoration = false
+window-save-state = always
+window-inherit-font-size = true
+window-inherit-working-directory = true
+
+scrollback-limit = 200000
 
 # Other
 copy-on-select = clipboard
-shell-integration-features = cursor,sudo,no-title
+shell-integration = zsh
+shell-integration-features = cursor,sudo
 app-notifications = no-clipboard-copy
+clipboard-write = allow
+clipboard-read = allow
 
 # Remove opacity
-unfocused-split-opacity = 1
+unfocused-split-opacity = 0.85
+unfocused-split-fill = #ccd0da
 
 # term
-term=xterm-ghostty
+term = ghostty

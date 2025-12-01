@@ -1,4 +1,3 @@
----
 gui:
   branchColors:
     'feature': '#a6e3a1'
@@ -26,31 +25,27 @@ gui:
       - '#cdd6f4'
     searchingActiveBorderColor:
       - '#f9e2af'
-
   authorColors:
     '*': '#b4befe'
-
   nerdFontsVersion: "3"
-
   showDivergenceFromBaseBranch: onlyArrow
 git:
   # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
-  paging:
-    # Value of the --color arg in the git diff command. Some pagers want this to be set to 'always' and some want it set to 'never'
-    colorArg: always
-
-    # e.g.
-    # diff-so-fancy
-    # delta --dark --paging=never
-    # ydiff -p cat -s --wrap --width={{columnWidth}}
-    pagers: ["delta --dark --paging=never"]
-    branchPrefix: "feature/"
-    os:
-      edit: "$EDITOR {{filename}}"
-      editAtLine: "$EDITOR {{filename}} +{{line}}"
-      editAtLineAndWait: "$EDITOR {{filename}} +{{line}}"
-      editInTerminal: true
-      open: "$EDITOR {{filename}}"
+  pagers:
+    - # Value of the --color arg in the git diff command. Some pagers want this to be set to 'always' and some want it set to 'never'
+      colorArg: always
+      # e.g.
+      # diff-so-fancy
+      # delta --dark --paging=never
+      # ydiff -p cat -s --wrap --width={{columnWidth}}
+      pagers: ["delta --dark --paging=never"]
+      branchPrefix: "feature/"
+      os:
+        edit: "$EDITOR {{filename}}"
+        editAtLine: "$EDITOR {{filename}} +{{line}}"
+        editAtLineAndWait: "$EDITOR {{filename}} +{{line}}"
+        editInTerminal: true
+        open: "$EDITOR {{filename}}"
 customCommands:
   - key: "<c-p>"
     command: "git remote prune {{.SelectedRemote.Name}}"
@@ -88,7 +83,6 @@ customCommands:
         title: 'What is the new branch name?'
         key: 'BranchName'
         initialValue: ''
-
   # retrieved from: https://github.com/jesseduffield/lazygit/wiki/Custom-Commands-Compendium#conventional-commit
   - key: "<c-v>"
     context: "global"

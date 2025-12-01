@@ -57,8 +57,6 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-eval "$(direnv hook zsh)"
-
 local AUTOSUGGEST=""
 
 # Function to check appearance mode
@@ -283,11 +281,10 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 # bindkey -M vicmd 'k' history-substring-search-up
 # bindkey -M vicmd 'j' history-substring-search-down
-source "${HOME}/.nvimstty"
 
 zvm_after_init_commands+=(my_init)
-source "/home/max/.nvimstty" &> /dev/null
 
 if [[ -f "$HOME/.local/bin/env" ]]; then
     source "$HOME/.local/bin/env"
 fi
+
