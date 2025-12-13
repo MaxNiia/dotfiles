@@ -8,7 +8,7 @@
 	helper = !/usr/bin/gh auth git-credential
 
 [init]
-        templateDir = /home/max/.git-template
+	templateDir = /home/max/.config/git/template
         defaultBranch = main
 
 [core]
