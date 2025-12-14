@@ -30,15 +30,18 @@ if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -d "$HOME/.cargo/bin" ]; then
+    PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 # Created by `pipx` on 2025-02-22 09:40:11
-export PATH="$PATH:/home/max/.local/bin"
 if [ -f "$HOME/.cargo/env" ]; then
     source $HOME/.cargo/env
 fi
 
 if [ -f "$HOME/.local/bin/env" ]; then
-    . "$HOME/.cargo/env"
+    . "$HOME/.local/bin/env"
 fi
 
-export XCURSOR_SIZE=48
+export XCURSOR_SIZE=24
 export XCURSOR_THEME="catppuccin-latte-pink-cursors"

@@ -202,8 +202,6 @@ export FZF_ALT_C_OPTS='--preview "tree -C {} | head -500"'
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/applications/magick"
 
-
-
 ENABLE_CORRECTION="true"
 
 # Completion
@@ -213,7 +211,6 @@ fpath=($completions $fpath)
 export PATH="$PATH:$plugins/fzf-zsh-plugin/bin"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-export HELIX_RUNTIME=~/.helix/runtime
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="$AUTOSUGGEST"
 
@@ -232,7 +229,6 @@ function my_init() {
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
     # Set up fzf key bindings and fuzzy completion
     source <(fzf --zsh)
-    . "$HOME/.cargo/env"
     source "$scripts/zsh/lfs.zsh"
     source "$scripts/zsh/zoxide.zsh"
     source "$scripts/sh/fzf-git.sh"
@@ -240,7 +236,6 @@ function my_init() {
     alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
     alias cat="bat -pp"
     alias f='$EDITOR "$(fzf)"'
-    # alias tmux="TERM=screen-256color-bce tmux"
     alias ls=lsd
     alias gs="git status --short"
     alias gd="git diff"
@@ -250,7 +245,15 @@ function my_init() {
     alias gp="git push"
     alias gu="git pull"
     alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n'"
-    alias gb="git switch"
+    gb() {
+        if [ "$#" -eq 0 ]; then
+            # Use fzf to pick a branch when no args are given
+            local branch
+            branch=$(_fzf_git_branches) && [ -n "$branch" ] && git switch "$branch"
+        else
+            git switch "$@"
+        fi
+    }
     alias gi="git init"
     alias gcl="git clone"
     alias tree="ls --tree"
@@ -262,7 +265,6 @@ function my_init() {
 source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$plugins/zsh-autopair/autopair.zsh"
-# source "$scripts/sh/wezterm.sh"
 autopair-init
 fpath=("$plugins/zsh-completions/src" $fpath)
 fpath=("$config/pure" $fpath)
@@ -281,12 +283,5 @@ eval "$(register-python-argcomplete pipx)"
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-# bindkey -M vicmd 'k' history-substring-search-up
-# bindkey -M vicmd 'j' history-substring-search-down
 
 zvm_after_init_commands+=(my_init)
-
-if [[ -f "$HOME/.local/bin/env" ]]; then
-    source "$HOME/.local/bin/env"
-fi
-
