@@ -189,7 +189,14 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec --no-startup-id xrandr --output DisplayPort-2 --mode 3840x2160 --rate 143.96 --pos 0x0 --output DisplayPort-0 --mode 3840x2160 --rate 143.96 --right-of DisplayPort-2
+bindsym $mod+Escape exec i3lock 
+
+# Screenshots
+bindsym Print exec --no-startup-id maim | tee "/home/$USER/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png" | xclip -selection clipboard -t image/png
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | tee "/home/$USER/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png" | xclip -selection clipboard -t image/png
+bindsym Shift+Print exec --no-startup-id maim --select | tee "/home/$USER/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png" | xclip -selection clipboard -t image/png
+
+include ~/.config/i3/private.conf
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
