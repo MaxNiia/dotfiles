@@ -57,7 +57,7 @@ window-save-state = always
 window-inherit-font-size = true
 window-inherit-working-directory = true
 
-scrollback-limit = 200000
+scrollback-limit = 100000000
 
 # Other
 copy-on-select = clipboard

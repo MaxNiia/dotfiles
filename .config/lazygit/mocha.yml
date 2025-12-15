@@ -5,6 +5,7 @@ gui:
     'release': '#f9e2af'
     'epic': '#cba6f7'
     'master': '#f5c2e7'
+    'main': '#f5c2e7'
   theme:
     activeBorderColor:
       - '#f5c2e7'

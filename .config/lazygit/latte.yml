@@ -1,10 +1,11 @@
 gui:
   branchColors:
-    'feature': '#a6e3a1'
-    'bugfix': '#f38ba8'
-    'release': '#f9e2af'
-    'epic': '#cba6f7'
-    'master': '#f5c2e7'
+    'feature': '#40a02b'
+    'bugfix': '#d20f39'
+    'release': '#df8d1d'
+    'epic': '#8839ef' 
+    'master': '#ea76cb'
+    'main': '#ea76cb' 
   theme:
     activeBorderColor:
       - '#ea76cb'

@@ -5,8 +5,7 @@
       "title": "pop-shell-example"
     },
     {
-      "class": "Gnome-terminal",
-      "title": "Disp_1 - default"
+      "class": "gnome-terminal-server"
     }
   ],
   "skiptaskbarhidden": [],
