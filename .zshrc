@@ -235,7 +235,45 @@ function my_init() {
     alias cd="z"
     alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
     alias cat="bat -pp"
-    alias f='$EDITOR "$(fzf)"'
+
+    fzf-edit-files-fd() {
+        local files
+        files=$(fd --type f --hidden --follow --exclude .git \
+            | fzf --multi --height=40% --reverse \
+            --preview 'bat --style=numbers --color=always {} 2>/dev/null || sed -n "1,200p" {}')
+
+        if [[ -n "$files" ]]; then
+            ${EDITOR:-nvim} ${(f)files}
+        fi
+  
+        zle reset-prompt
+    }
+
+    zle -N fzf-edit-files-fd
+    bindkey '^[e' fzf-edit-files-fd
+
+    fzf-rg-edit() {
+      local matches
+      matches=$(rg --line-number --no-heading --color=always "" \
+        | fzf --multi --ansi --height=40% --reverse \
+              --preview 'bat --style=numbers --color=always {1} --highlight-line {2} 2>/dev/null'
+      )
+
+      if [[ -n "$matches" ]]; then
+        local args=()
+        while IFS=: read -r file line _; do
+          args+=("+${line}" "$file")
+        done <<< "$matches"
+
+        ${EDITOR:-nvim} "${args[@]}"
+      fi
+
+      zle reset-prompt
+    }
+
+    zle -N fzf-rg-edit
+    bindkey '^[s' fzf-rg-edit
+
     alias ls=lsd
     alias gs="git status --short"
     alias gd="git diff"

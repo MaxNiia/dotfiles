@@ -40,12 +40,12 @@ git:
       # ydiff -p cat -s --wrap --width={{columnWidth}}
       pagers: ["delta --dark --paging=never"]
       branchPrefix: "feature/"
-      os:
-        edit: "$EDITOR {{filename}}"
-        editAtLine: "$EDITOR {{filename}} +{{line}}"
-        editAtLineAndWait: "$EDITOR {{filename}} +{{line}}"
-        editInTerminal: true
-        open: "$EDITOR {{filename}}"
+os:
+  edit: "$EDITOR {{filename}}"
+  editAtLine: "$EDITOR {{filename}} +{{line}}"
+  editAtLineAndWait: "$EDITOR {{filename}} +{{line}}"
+  editInTerminal: true
+  open: "$EDITOR {{filename}}"
 customCommands:
   - key: "<c-p>"
     command: "git remote prune {{.SelectedRemote.Name}}"

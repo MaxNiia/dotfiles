@@ -5,10 +5,13 @@
 [credential "https://github.com"]
         username = MaxNiia
         email = muxinatorn@gmail.com
-	helper = !/usr/bin/gh auth git-credential
+        helper = !/usr/bin/gh auth git-credential
+
+[credential "https://dev.azure.com"]
+        useHttpPath = true
 
 [init]
-	templateDir = /home/max/.config/git/template
+        templateDir = /home/max/.config/git/template
         defaultBranch = main
 
 [core]
@@ -85,7 +88,7 @@
         prompt = true
 
 [mergetool "nvimmerge"]
-        cmd = nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'
+        cmd = nvim -d "$LOCAL" "$REMOTE" "$MERGED" -c 'wincmd w' -c 'wincmd J'
 
 [diff]
         context = 3
@@ -100,7 +103,7 @@
         prompt = true
 
 [difftool "nvimdiff"]
-        cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
+        cmd = nvim -c "packadd nvim.difftool" -c "DiffTool $LOCAL $REMOTE"
 
 [rebase]
         autosquash = true
@@ -119,14 +122,6 @@
 [interactive]
         singlekey = true
         diffFilter = delta --color-only
-
-[include]
-	path = ~/.config/delta/themes/catppuccin.gitconfig
-
-[delta]
-        navigate = true
-        dark = false
-        features = catppuccin-latte
 
 [color]
         ui = true
@@ -154,16 +149,17 @@
         whitespace = red reverse
 
 [include]
-        path = ~/.private/.gitconfig
+        path = /home/max/.private/.gitconfig
+        path = /home/max/.config/delta/themes/catppuccin.gitconfig
 
-[includeIf "gitdir:~/workspace/"]
-        path = ~/workspace/.gitconfig
+[includeIf "gitdir:/home/max/workspace/"]
+        path = /home/max/workspace/.gitconfig
+
 [includeIf "gitdir:/media/max/workspace/"]
         path = /media/max/workspace/.gitconfig
-[credential]
-	helper = /usr/local/bin/git-credential-manager
-	credentialStore = secretservice
-[credential "https://dev.azure.com"]
-	useHttpPath = true
-[inite]
-	templateDir = /home/max/.config/git/template
+
+[delta]
+        navigate = true
+        dark = false
+        features = catppuccin-latte
+
