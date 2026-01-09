@@ -11,7 +11,7 @@
         useHttpPath = true
 
 [init]
-        templateDir = /home/max/.config/git/template
+	templateDir = /home/max/.git-template
         defaultBranch = main
 
 [core]

@@ -6,3 +6,5 @@ compile_commands.json
 .coredump
 .venv
 Session.vim
+CLAUDE.md
+.claude/
