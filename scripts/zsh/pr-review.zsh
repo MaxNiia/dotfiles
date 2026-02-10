@@ -39,6 +39,12 @@ pr() {
                 base_branch="master"
             elif git show-ref --verify --quiet refs/heads/main; then
                 base_branch="main"
+            elif git show-ref --verify --quiet refs/remotes/origin/master; then
+                base_branch="origin/master"
+            elif git show-ref --verify --quiet refs/remotes/origin/main; then
+                base_branch="origin/main"
+            elif git show-ref --verify --quiet refs/remotes/origin/bare; then
+                base_branch="origin/bare"
             else
                 echo "Could not auto-detect base branch. Please specify it explicitly."
                 return 1
@@ -46,6 +52,18 @@ pr() {
         fi
 
         echo "Auto-detected base branch: $base_branch"
+    fi
+
+    # Check if base branch exists (locally or as remote)
+    if ! git rev-parse --verify "$base_branch" &>/dev/null && \
+       ! git rev-parse --verify "origin/$base_branch" &>/dev/null; then
+        echo "Error: Base branch '$base_branch' not found locally or on remote."
+        return 1
+    fi
+
+    # Use origin/base_branch if base_branch doesn't exist locally
+    if ! git rev-parse --verify "$base_branch" &>/dev/null; then
+        base_branch="origin/$base_branch"
     fi
 
     echo "Checking out branch: $branch_name"
@@ -58,7 +76,7 @@ pr() {
     local merge_base=$(git merge-base "$base_branch" "$branch_name")
 
     echo "Opening difftool to compare $branch_name with $base_branch (merge-base: ${merge_base:0:8})..."
-    git difftool "$base_branch"..."$branch_name"
+    git difftool -d "$base_branch"
 }
 
 # Register completion
