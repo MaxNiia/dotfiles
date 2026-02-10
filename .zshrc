@@ -231,6 +231,7 @@ function my_init() {
     source <(fzf --zsh)
     source "$scripts/zsh/lfs.zsh"
     source "$scripts/zsh/zoxide.zsh"
+    source "$scripts/zsh/pr-review.zsh"
     source "$scripts/sh/fzf-git.sh"
     alias cd="z"
     alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
