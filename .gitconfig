@@ -94,16 +94,16 @@
         context = 3
         renames = copies
         interHunkContext = 10
-        tool = nvimdiff
+        tool = nvim_difftool
         mnemonicprefix = true  # Helps readability in diffs
         algorithm = histogram
         submodule = short
 
 [difftool]
-        prompt = true
+        prompt = false
 
-[difftool "nvimdiff"]
-        cmd = nvim -c "packadd nvim.difftool" -c "DiffTool $LOCAL $REMOTE"
+[difftool "nvim_difftool"]
+        cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
 
 [rebase]
         autosquash = true
