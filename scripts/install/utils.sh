@@ -78,15 +78,16 @@ git_update() {
         git clone "$1" "$2"
     fi
 
-    cd "$2"
-    git fetch
-    if [ $# -eq 3 ]; then
-        git checkout $3
-    else
-        git pull
-    fi
-    git submodule update --recursive --init
-    cd -
+    (
+        cd "$2"
+        git fetch
+        if [ $# -eq 3 ]; then
+            git checkout "$3"
+        else
+            git pull
+        fi
+        git submodule update --recursive --init
+    )
 }
 
 cargo_install() {

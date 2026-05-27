@@ -1,4 +1,4 @@
-#!/usr/env zsh
+#!/usr/bin/env zsh
 
 lfs_fix() {
    git rm --cached -r .

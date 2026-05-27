@@ -13,12 +13,9 @@ if [[ -f "$private_config/zshrc.zsh" ]]; then
     source "$private_config/zshrc.zsh"
 fi
 
-DISABLE_AUTO_UPDATE="true"
-
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-HISTCONTROL=ignoreboth
 setopt SHARE_HISTORY
 setopt APPEND_HISTORY
 setopt EXTENDED_HISTORY
@@ -69,7 +66,7 @@ local AUTOSUGGEST=""
 
 # Function to check appearance mode
 function check_appearance() {
-    if [ -e gsettings ]; then
+    if command -v gsettings &>/dev/null; then
         if [ "$(gsettings get org.gnome.desktop.interface color-scheme)" = "'prefer-dark'" ]; then
             echo "dark"
             return
@@ -137,8 +134,9 @@ if [[ "$appearance" == "dark" ]]; then
 
    alias lazygit='lazygit --use-config-file="/home/max/.config/lazygit/config.yml,/home/max/.config/lazygit/mocha.yml"'
 
-   sed -i "s/dark = false/dark = true/g"  ~/.gitconfig
-   sed -i "s/features = catppuccin-latte/features = catppuccin-mocha/g"  ~/.gitconfig
+   export DELTA_FEATURES="catppuccin-mocha"
+   ln -sf "$HOME/.config/waybar/mocha.css" "$HOME/.config/waybar/active.css"
+   pkill -SIGUSR2 waybar 2>/dev/null || true
 
    export NVIM_BACKGROUND="dark"
    if command -v vivid &> /dev/null
@@ -182,8 +180,9 @@ else
 
    alias lazygit='lazygit --use-config-file="/home/max/.config/lazygit/config.yml,/home/max/.config/lazygit/latte.yml"'
 
-   sed -i "s/dark = true/dark = false/g"  ~/.gitconfig
-   sed -i "s/features = catppuccin-mocha/features = catppuccin-latte/g"  ~/.gitconfig
+   export DELTA_FEATURES="catppuccin-latte"
+   ln -sf "$HOME/.config/waybar/latte.css" "$HOME/.config/waybar/active.css"
+   pkill -SIGUSR2 waybar 2>/dev/null || true
 
    export NVIM_BACKGROUND="light"
    if command -v vivid &> /dev/null
@@ -214,8 +213,6 @@ export FZF_ALT_C_OPTS='--preview "tree -C {} | head -500"'
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/applications/magick"
 
-ENABLE_CORRECTION="true"
-
 # Completion
 fpath=($completions $fpath)
 
@@ -230,8 +227,6 @@ setopt autocd
 
 bindkey -v
 
-set -o vi
-
 export VI_MODE_SET_CURSOR=true
 
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
@@ -243,7 +238,6 @@ function my_init() {
 
     if command -v fzf &> /dev/null; then
        bindkey -r '^G'
-       [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
        # Set up fzf key bindings and fuzzy completion
        source <(fzf --zsh)
        source "$scripts/zsh/lfs.zsh"
@@ -284,17 +278,6 @@ function my_init() {
       fi
 
       zle reset-prompt
-
-    alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n'"
-    gb() {
-        if [ "$#" -eq 0 ]; then
-            # Use fzf to pick a branch when no args are given
-            local branch
-            branch=$(_fzf_git_branches) && [ -n "$branch" ] && git switch "$branch"
-        else
-            git switch "$@"
-        fi
-    }
     }
 
     zle -N fzf-rg-edit
@@ -309,7 +292,7 @@ function my_init() {
        alias cat="bat -pp"
     fi
     
-    if command -v bat &> /dev/null; then
+    if command -v lsd &> /dev/null; then
        alias ls=lsd
     fi
 
@@ -326,6 +309,15 @@ function my_init() {
     alias gu="git pull"
     alias gi="git init"
     alias gcl="git clone"
+    alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n'"
+    gb() {
+        if [ "$#" -eq 0 ]; then
+            local branch
+            branch=$(_fzf_git_branches) && [ -n "$branch" ] && git switch "$branch"
+        else
+            git switch "$@"
+        fi
+    }
     alias tree="ls --tree"
     # alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
     # alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'

@@ -153,6 +153,4 @@
 
 [delta]
         navigate = true
-        dark = false
-        features = catppuccin-latte
 

@@ -33,7 +33,7 @@ git:
   fetchAll: false
   # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
   pagers:
-    - pager: delta --light --paging=never
+    - pager: delta --paging=never
   allBranchesLogCmds:
     - git log --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium --max-count=300
 os:

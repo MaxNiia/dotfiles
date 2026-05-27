@@ -76,7 +76,7 @@ pr() {
     local merge_base=$(git merge-base "$base_branch" "$branch_name")
 
     echo "Opening difftool to compare $branch_name with $base_branch (merge-base: ${merge_base:0:8})..."
-    git difftool -d "$base_branch"
+    git difftool -d "$merge_base"
 }
 
 # Register completion

@@ -5,7 +5,7 @@ set -e
 WORKSPACE="$HOME/workspace"
 APPLICATIONS="$HOME/applications"
 DEV="$WORKSPACE/dev"
-CONFIG="$XDG_CONFIG"
+CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
 SCRIPTS="$HOME/scripts"
 NOTES="$HOME/notes"
 INSTALL="$SCRIPTS/install"
@@ -45,7 +45,9 @@ apt_install \
     pavucontrol \
     rofi \
     xdg-desktop-portal-wlr \
-    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gtk \
+    dex \
+    network-manager-gnome
 
 # shellcheck source=./installers.sh
 source "$INSTALL/installers.sh"
@@ -57,7 +59,6 @@ if [ ! "$shell" = "/usr/bin/zsh" ]; then
     sudo chsh -s "$(command -v zsh)" "${USER}"
 fi
 
-npm_install diff-so-fancy
 npm_install @bazel/bazelisk
 
 cargo_install git-delta
@@ -84,9 +85,11 @@ apt_install poppler-utils
 cargo_install resvg
 cargo_install yazi-build
 
+create_dir "$HOME/Pictures/Screenshots"
+
 # FZF
 git_update https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+~/.fzf/install --key-bindings --completion --no-update-rc
 if [ ! -f /usr/bin/fzf ]; then
     sudo ln -s "$HOME/.fzf/bin/fzf" /usr/bin/fzf
 fi

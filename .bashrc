@@ -8,7 +8,7 @@ case $- in
 *) return ;;
 esac
 
-export XDG_CONFIG="$HOME"
+export XDG_CONFIG="$HOME/.config"
 
 if [[ -f "$HOME/.private/bashrc.bash" ]]; then
     source "$HOME/.private/bashrc.bash"
@@ -22,8 +22,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=100000
+HISTFILESIZE=200000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -126,8 +126,8 @@ fi
 
 # Created by `pipx` on 2025-02-22 09:40:11
 export PATH="$PATH:/home/max/.local/bin"
-alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
-. "$HOME/.cargo/env"
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 alias cat="bat -pp"
 
 # fnm
