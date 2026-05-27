@@ -50,6 +50,7 @@ fi
 npm_install diff-so-fancy
 npm_install @bazel/bazelisk
 
+cargo_install git-delta
 cargo_install fd-find
 cargo_install lsd
 cargo_install zoxide
