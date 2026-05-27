@@ -3,11 +3,10 @@
 set -e
 
 WORKSPACE="$HOME/workspace"
-APPLICATIONS="$HOME/applications"
+APPLICATIONS="$HOME/Applications"
 DEV="$WORKSPACE/dev"
 CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
 SCRIPTS="$HOME/scripts"
-NOTES="$HOME/notes"
 INSTALL="$SCRIPTS/install"
 # shellcheck source=./utils.sh
 source "$INSTALL/utils.sh"
@@ -19,7 +18,6 @@ create_dir "$WORKSPACE"
 create_dir "$APPLICATIONS"
 create_dir "$DEV"
 create_dir "$CONFIG"
-create_dir "$NOTES"
 
 apt_install \
     git \
