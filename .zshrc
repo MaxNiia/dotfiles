@@ -315,7 +315,7 @@ function my_init() {
 
 
     alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
-    alias lazyconfig='\lazygit --git-dir=/home/max/.cfg/ --work-tree=/home/max'
+    alias lazyconfig='lazygit --git-dir=/home/max/.cfg/ --work-tree=/home/max'
 
     alias gs="git status --short"
     alias gd="git diff"

@@ -30,6 +30,7 @@ gui:
   nerdFontsVersion: "3"
   showDivergenceFromBaseBranch: onlyArrow
 git:
+  fetchAll: false
   # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
   pagers:
     - # Value of the --color arg in the git diff command. Some pagers want this to be set to 'always' and some want it set to 'never'

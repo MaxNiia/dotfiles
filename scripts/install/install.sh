@@ -35,7 +35,11 @@ apt_install \
     swaylock \
     grim \
     slurp \
-    wl-clipboard
+    wl-clipboard \
+    blueman \
+    playerctl \
+    kanshi \
+    pavucontrol
 
 # shellcheck source=./installers.sh
 source "$INSTALL/installers.sh"

@@ -19,7 +19,7 @@
         editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
         pager = delta
         fileMode = true
-        compression = 9
+        compression = -1
         whitespace = error
         preloadindex = true
 
@@ -39,7 +39,6 @@
 
 [push]
         autoSetupRemote = true
-        followTags = true
 
 [pull]
         rebase = true
@@ -59,12 +58,6 @@
         d = difftool -d
         m = mergetool
 
-        lg = log --graph --pretty=format:'%C(auto)%h%d %s %C(blue)%C(bold)%cr %C(green)%an'
-        lgf = log --graph --all --decorate --oneline --color
-        lga = log --graph --all --pretty=format:'%C(auto)%h%d %s %C(blue)%C(bold)%cr %C(green)%an'
-        lol = log --graph --decorate --pretty=oneline --abbrev-commit
-        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-        lgs = log --graph --pretty=format:'%C(auto)%h %C(cyan)%an %C(dim white)- %Creset%s %C(green)(%ar)'
 
 [log]
         abbrevCommit = true
