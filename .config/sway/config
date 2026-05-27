@@ -16,7 +16,7 @@ exec swayidle -w \
     before-sleep 'swaylock -f -c 000000'
 exec nm-applet --indicator
 exec blueman-applet
-exec systemctl --user start kanshi
+exec_always systemctl --user restart kanshi
 exec waybar
 
 input type:keyboard {
@@ -42,7 +42,7 @@ bindsym $mod+Return exec ghostty
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec "rofi -show combi -modes combi -combi-modes window,drun,run"
+bindsym $mod+d exec "rofi -show combi -modes combi -combi-modes window,drun,run -monitor $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')"
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
