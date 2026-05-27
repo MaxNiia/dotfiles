@@ -1,0 +1,109 @@
+@import "latte.css";
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "IosevkaTermNerdFont", monospace;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: @base;
+    color: @text;
+    border-bottom: 2px solid @crust;
+}
+
+.modules-left,
+.modules-right {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    background-color: @surface0;
+    color: @subtext1;
+    border-bottom: 2px solid transparent;
+}
+
+#workspaces button:hover {
+    background-color: @surface1;
+    color: @text;
+}
+
+#workspaces button.focused {
+    background-color: @surface1;
+    color: @blue;
+    border-bottom: 2px solid @blue;
+}
+
+#workspaces button.urgent {
+    background-color: @red;
+    color: @base;
+}
+
+#mode {
+    background-color: @yellow;
+    color: @base;
+    padding: 0 8px;
+    font-style: italic;
+}
+
+#clock {
+    color: @blue;
+    padding: 0 12px;
+}
+
+#battery {
+    color: @green;
+    padding: 0 8px;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: @teal;
+}
+
+#network {
+    color: @sapphire;
+    padding: 0 8px;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+#pulseaudio {
+    color: @mauve;
+    padding: 0 8px;
+}
+
+#pulseaudio.muted {
+    color: @overlay1;
+}
+
+#language {
+    color: @peach;
+    padding: 0 8px;
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @red;
+}
