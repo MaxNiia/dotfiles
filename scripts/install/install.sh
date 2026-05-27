@@ -12,6 +12,9 @@ INSTALL="$SCRIPTS/install"
 # shellcheck source=./utils.sh
 source "$INSTALL/utils.sh"
 
+echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd-"$USER" > /dev/null
+sudo chmod 440 /etc/sudoers.d/nopasswd-"$USER"
+
 create_dir "$WORKSPACE"
 create_dir "$APPLICATIONS"
 create_dir "$DEV"
@@ -39,7 +42,10 @@ apt_install \
     blueman \
     playerctl \
     kanshi \
-    pavucontrol
+    pavucontrol \
+    rofi \
+    xdg-desktop-portal-wlr \
+    xdg-desktop-portal-gtk
 
 # shellcheck source=./installers.sh
 source "$INSTALL/installers.sh"
