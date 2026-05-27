@@ -1,8 +1,8 @@
 compile_commands.json
 .cache
 .cfg
-.lazy.lua
 .nvim.lua
 .coredump
 .venv
 Session.vim
+.config/gh/hosts.yml
