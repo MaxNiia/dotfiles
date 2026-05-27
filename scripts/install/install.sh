@@ -45,7 +45,8 @@ apt_install \
     xdg-desktop-portal-wlr \
     xdg-desktop-portal-gtk \
     dex \
-    network-manager-gnome
+    network-manager-gnome \
+    mako-notifier
 
 # shellcheck source=./installers.sh
 source "$INSTALL/installers.sh"

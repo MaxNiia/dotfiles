@@ -1,6 +1,11 @@
 include catppuccin-latte
 
 default_border pixel 3
+smart_borders on
+focus_follows_mouse yes
+workspace_auto_back_and_forth yes
+gaps inner 0
+gaps outer 0
 
 output * bg #000000 solid_color
 
@@ -8,22 +13,24 @@ set $mod Mod4
 
 font pango:IosevkaTermNerdFont 16
 
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway SWAYSOCK
 exec dex --autostart --environment sway
 exec swayidle -w \
     timeout 300 'swaylock -f -c 000000' \
     timeout 600 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
     before-sleep 'swaylock -f -c 000000'
+exec mako
 exec nm-applet --indicator
 exec blueman-applet
-exec_always systemctl --user restart kanshi
-exec_always systemctl --user restart waybar
+exec_always sh -c 'systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK; dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway SWAYSOCK'
+exec_always sh -c 'pkill -x kanshi; kanshi'
+exec_always sh -c 'pkill -x waybar; waybar'
 
 input type:keyboard {
     xkb_layout us,se
 }
+
+seat * hide_cursor 5000
 
 bindsym $mod+space input type:keyboard xkb_switch_layout next
 
@@ -36,6 +43,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 bindsym $mod+p exec pavucontrol
+bindsym $mod+b exec blueman-manager
 
 floating_modifier $mod
 tiling_drag modifier
