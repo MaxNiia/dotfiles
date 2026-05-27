@@ -2,6 +2,8 @@ include catppuccin-latte
 
 default_border pixel 3
 
+output * bg #000000 solid_color
+
 set $mod Mod4
 
 font pango:IosevkaTermNerdFont 16
