@@ -20,13 +20,22 @@ create_dir "$NOTES"
 
 apt_install \
     git \
+    tmux \
     zsh \
     unzip \
+    golang \
     gettext \
     curl \
     build-essential \
     libreadline-dev \
-    diffstat
+    diffstat \
+    sway \
+    waybar \
+    swayidle \
+    swaylock \
+    grim \
+    slurp \
+    wl-clipboard
 
 # shellcheck source=./installers.sh
 source "$INSTALL/installers.sh"
@@ -40,27 +49,20 @@ fi
 
 npm_install diff-so-fancy
 npm_install @bazel/bazelisk
-cargo_install bat
-bat cache --build
+
+cargo_install fd-find
 cargo_install lsd
 cargo_install zoxide
+cargo_install ripgrep
+cargo_install bat
+cargo_install tree-sitter-cli
+bat cache --build
+
 pipx_install cmake "3.31.4"
 
 if [[ $(grep -i Microsoft /proc/version) ]]; then
     apt_install wslu
 fi
-
-
-# shellcheck source=../../.config/nvim/script/init.sh
-source "$CONFIG/nvim/scripts/init.sh"
-# shellcheck source=../../.config/helix/script/init.sh
-# source "$CONFIG/helix/scripts/init.sh"
-
-curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
-echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
-sudo chmod 644 /usr/share/keyrings/wezterm-fury.gpg
-apt_install wezterm-nightly
-
 
 # Yazi
 apt_install p7zip-full
@@ -69,4 +71,17 @@ apt_install ffmpeg
 apt_install jq
 apt_install poppler-utils
 cargo_install resvg
-cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
+cargo_install yazi-build
+
+# FZF
+git_update https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+if [ ! -f /usr/bin/fzf ]; then
+    sudo ln -s "$HOME/.fzf/bin/fzf" /usr/bin/fzf
+fi
+
+# TPM
+git_update https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# Lazygit
+go install github.com/jesseduffield/lazygit@latest

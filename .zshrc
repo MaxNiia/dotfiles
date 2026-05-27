@@ -55,8 +55,14 @@ fi
 # fnm
 FNM_PATH="/home/max/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/max/.local/share/fnm:$PATH"
+  export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
+fi
+
+# GO
+GO_PATH="/home/max/go/bin"
+if [ -d "$GO_PATH" ]; then
+  export PATH="$GO_PATH:$PATH"
 fi
 
 local AUTOSUGGEST=""
@@ -135,7 +141,10 @@ if [[ "$appearance" == "dark" ]]; then
    sed -i "s/features = catppuccin-latte/features = catppuccin-mocha/g"  ~/.gitconfig
 
    export NVIM_BACKGROUND="dark"
-   export LS_COLORS="$(vivid generate catppuccin-mocha)"
+   if command -v vivid &> /dev/null
+   then
+        export LS_COLORS="$(vivid generate catppuccin-mocha)"
+   fi
 else
    # Latte
    # FZF
@@ -177,7 +186,10 @@ else
    sed -i "s/features = catppuccin-mocha/features = catppuccin-latte/g"  ~/.gitconfig
 
    export NVIM_BACKGROUND="light"
-   export LS_COLORS="$(vivid generate catppuccin-latte)"
+   if command -v vivid &> /dev/null
+   then
+      export LS_COLORS="$(vivid generate catppuccin-latte)"
+   fi
 fi
 
 function y() {
@@ -225,17 +237,19 @@ export VI_MODE_SET_CURSOR=true
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 
 function my_init() {
-    bindkey -r '^G'
-    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-    # Set up fzf key bindings and fuzzy completion
-    source <(fzf --zsh)
-    source "$scripts/zsh/lfs.zsh"
-    source "$scripts/zsh/zoxide.zsh"
-    source "$scripts/zsh/pr-review.zsh"
-    source "$scripts/sh/fzf-git.sh"
-    alias cd="z"
-    alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
-    alias cat="bat -pp"
+    if [ -d "$HOME/.cargo" ]; then
+       . "$HOME/.cargo/env"
+    fi
+
+    if command -v fzf &> /dev/null; then
+       bindkey -r '^G'
+       [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+       # Set up fzf key bindings and fuzzy completion
+       source <(fzf --zsh)
+       source "$scripts/zsh/lfs.zsh"
+       source "$scripts/zsh/zoxide.zsh"
+       source "$scripts/zsh/pr-review.zsh"
+       source "$scripts/sh/fzf-git.sh"
 
     fzf-edit-files-fd() {
         local files
@@ -270,19 +284,7 @@ function my_init() {
       fi
 
       zle reset-prompt
-    }
 
-    zle -N fzf-rg-edit
-    bindkey '^[s' fzf-rg-edit
-
-    alias ls=lsd
-    alias gs="git status --short"
-    alias gd="git diff"
-    alias ga="git add"
-    alias gap="git add --patch"
-    alias gc="git commit"
-    alias gp="git push"
-    alias gu="git pull"
     alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n'"
     gb() {
         if [ "$#" -eq 0 ]; then
@@ -293,6 +295,35 @@ function my_init() {
             git switch "$@"
         fi
     }
+    }
+
+    zle -N fzf-rg-edit
+    bindkey '^[s' fzf-rg-edit
+
+    fi
+    if command -v z &> /dev/null; then
+       alias cd="z"
+    fi
+
+    if command -v bat &> /dev/null; then
+       alias cat="bat -pp"
+    fi
+    
+    if command -v bat &> /dev/null; then
+       alias ls=lsd
+    fi
+
+
+    alias config='/usr/bin/git --git-dir=/home/max/.cfg/ --work-tree=/home/max'
+    alias lazyconfig='\lazygit --git-dir=/home/max/.cfg/ --work-tree=/home/max'
+
+    alias gs="git status --short"
+    alias gd="git diff"
+    alias ga="git add"
+    alias gap="git add --patch"
+    alias gc="git commit"
+    alias gp="git push"
+    alias gu="git pull"
     alias gi="git init"
     alias gcl="git clone"
     alias tree="ls --tree"
