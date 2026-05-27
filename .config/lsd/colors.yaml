@@ -1,38 +1,38 @@
-user: "#f5e0dc" # 230
-group: "#94e2d5" # 187
+user: "#dc8a78" # rosewater
+group: "#179299" # teal
 permission:
-  read: "#a6e3a1" # dark_green
-  write: "#f9e2af" # dark_yellow
-  exec: "#f38ba8" # dark_red
-  exec-sticky: "#cba6f7" # 5
-  no-access: "#585b70" # 245
-  octal: "#89dceb" # 6
+  read: "#40a02b" # green
+  write: "#df8e1d" # yellow
+  exec: "#d20f39" # red
+  exec-sticky: "#8839ef" # mauve
+  no-access: "#acb0be" # surface2
+  octal: "#04a5e5" # sky
   acl: dark_cyan
   context: cyan
 date:
-  hour-old: "#74c7ec" # 40
-  day-old: "#89b4fa" # 42
-  older: "#b4befe" # 36
+  hour-old: "#209fb5" # sapphire
+  day-old: "#1e66f5" # blue
+  older: "#7287fd" # lavender
 size:
-  none: "#585b70"
-  small: "#a6e3a1"
-  medium: "#f9e2af"
-  large: "#f38ba8"
+  none: "#acb0be"
+  small: "#40a02b"
+  medium: "#df8e1d"
+  large: "#d20f39"
 inode:
-  valid: "#f5c2e7" # 13
-  invalid: "#585b70"
+  valid: "#ea76cb" # pink
+  invalid: "#acb0be"
 links:
-  valid: "#f5c2e7"
-  invalid: "#585b70"
-tree-edge: "#585b70"
+  valid: "#ea76cb"
+  invalid: "#acb0be"
+tree-edge: "#acb0be"
 git-status:
-  default: "#585b70"
-  unmodified: "#585b70"
-  ignored: "#585b70"
-  new-in-index: "#a6e3a1"
-  new-in-workdir: "#a6e3a1"
-  typechange: "#f9e2af"
-  deleted: "#f38ba8"
-  renamed: "#a6e3a1"
-  modified: "#f9e2af"
-  conflicted: "#f38ba8"
+  default: "#acb0be"
+  unmodified: "#acb0be"
+  ignored: "#acb0be"
+  new-in-index: "#40a02b"
+  new-in-workdir: "#40a02b"
+  typechange: "#df8e1d"
+  deleted: "#d20f39"
+  renamed: "#40a02b"
+  modified: "#df8e1d"
+  conflicted: "#d20f39"

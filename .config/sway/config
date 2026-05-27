@@ -135,9 +135,9 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Escape exec swaylock -f -c 000000
 
 # Screenshots: full / active window / area selection — all save to file and copy to clipboard
-bindsym Print exec grim - | tee ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy --type image/png
-bindsym $mod+Print exec grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy --type image/png
-bindsym Shift+Print exec grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy --type image/png
+bindsym Print exec sh -c 'f=~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H-%M-%S").png; grim "$f" && wl-copy --type image/png < "$f"'
+bindsym $mod+Print exec sh -c 'f=~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H-%M-%S").png; grim -g "$(swaymsg -t get_tree | jq -r '\''.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"'\'')" "$f" && wl-copy --type image/png < "$f"'
+bindsym Shift+Print exec sh -c 'f=~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H-%M-%S").png; grim -g "$(slurp)" "$f" && wl-copy --type image/png < "$f"'
 
 assign [app_id="org.gnome.Terminal"] workspace 7
 for_window [title="OpPanel Simulator"] move to workspace 7
