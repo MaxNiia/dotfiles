@@ -16,7 +16,7 @@ exec swayidle -w \
     before-sleep 'swaylock -f -c 000000'
 exec nm-applet --indicator
 exec blueman-applet
-exec kanshi
+exec systemctl --user start kanshi
 exec waybar
 
 input type:keyboard {
