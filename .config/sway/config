@@ -8,8 +8,8 @@ set $mod Mod4
 
 font pango:IosevkaTermNerdFont 16
 
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway SWAYSOCK
 exec dex --autostart --environment sway
 exec swayidle -w \
     timeout 300 'swaylock -f -c 000000' \
@@ -19,7 +19,7 @@ exec swayidle -w \
 exec nm-applet --indicator
 exec blueman-applet
 exec_always systemctl --user restart kanshi
-exec waybar
+exec_always systemctl --user restart waybar
 
 input type:keyboard {
     xkb_layout us,se
