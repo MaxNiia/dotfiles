@@ -28,6 +28,11 @@ font pango:IosevkaTermNerdFont 16
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# Configure monitor layout
+exec --no-startup-id xrandr --output HDMI-1-0 --mode 1920x1200 --pos 0x0 --output DP-3 --mode 3840x2160 --pos 1920x0 --output eDP-1 --primary --mode 1920x1200 --pos 5760x0
+
+exec --no-startup-id xdg-settings set default-web-browser firefox.desktop
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
@@ -38,6 +43,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+
+# Start SSH reverse tunnel in detached tmux session
+exec --no-startup-id tmux new-session -d -s ssh-tunnel 'autossh -N -R 5901:localhost:22 max@185.86.104.209 -p 25252'
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -193,6 +201,8 @@ bindsym Shift+Print exec --no-startup-id maim --select | tee "/home/$USER/Pictur
 assign [class="Gnome-terminal"] workspace 7
 for_window [title="OpPanel Simulator"] move to workspace 7
 for_window [title="IO Simulator"] move to workspace 7
+for_window [title="OpStation"] move to workspace 7
+for_window [title="ACMS.*"] move to workspace 7
 for_window [title="Scooptram.*"] move to workspace 7
 for_window [title="Minetruck.*"] move to workspace 7
 workspace 7 output DP-3

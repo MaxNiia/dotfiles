@@ -45,3 +45,4 @@ fi
 
 export XCURSOR_SIZE=24
 export XCURSOR_THEME="catppuccin-latte-pink-cursors"
+export GPG_TTY=$(tty)

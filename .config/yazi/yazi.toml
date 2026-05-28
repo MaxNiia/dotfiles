@@ -14,6 +14,6 @@ tab_size = 2
 
 [opener]
 edit = [
-	{ run = '$EDITOR "$@"', block = true, for = "unix" },
+	{ run = 'nvim --server "$NVIM_LISTEN_ADDRESS" --remote "$@"', block = true, for = "unix" },
 	{ run = "%EDITOR% %*",  block = true, for = "windows" },
 ]

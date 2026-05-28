@@ -4,7 +4,7 @@ font-family-bold = "IosevkaTerm Nerd Font Mono"
 font-family-italic = "IosevkaTerm Nerd Font Mono"
 font-family-bold-italic = "IosevkaTerm Nerd Font Mono"
 # font-feature = liga, ss09, cv02, cv05
-font-size = 10
+font-size = 14
 
 # Mouse
 mouse-hide-while-typing = true
@@ -17,16 +17,50 @@ window-theme = ghostty
 adjust-cursor-thickness = 180%
 
 # KeyBindings
+keybind = shift+ctrl+alt+j=resize_split:down,10
+keybind = shift+ctrl+alt+h=resize_split:left,10
+keybind = shift+ctrl+alt+l=resize_split:right,10
+keybind = shift+ctrl+alt+k=resize_split:up,10
+
+keybind = alt+one=goto_tab:1
+keybind = alt+two=goto_tab:2
+keybind = alt+three=goto_tab:3
+keybind = alt+four=goto_tab:4
+keybind = alt+five=goto_tab:5
+keybind = alt+six=goto_tab:6
+keybind = alt+seven=goto_tab:7
+keybind = alt+eight=goto_tab:8
+keybind = alt+nine=goto_tab:9
+
+keybind = alt+shift+t=new_tab
+
 keybind = alt+shift+comma=reload_config
+keybind = alt+shift+q=close_surface
+
 keybind = alt+shift+i=inspector:toggle
 keybind = alt+equal=increase_font_size:1
 keybind = alt+minus=decrease_font_size:1
 
 keybind = alt+zero=reset_font_size
 
+keybind = alt+shift+v=new_split:right
+keybind = alt+shift+s=new_split:down
+
+# keybind = alt+k=goto_split:top
+# keybind = alt+j=goto_split:bottom
+# keybind = alt+h=goto_split:left
+# keybind = alt+l=goto_split:right
+
 keybind = alt+shift+c=copy_to_clipboard
 keybind = alt+shift+b=write_screen_file:paste
 keybind = alt+shift+enter=toggle_fullscreen
+
+keybind = alt+z=toggle_split_zoom
+
+keybind = ctrl+shift+k=scroll_page_lines:-1
+keybind = ctrl+shift+j=scroll_page_lines:1
+keybind = ctrl+shift+u=scroll_page_up
+keybind = ctrl+shift+d=scroll_page_down
 
 confirm-close-surface = false
 
@@ -36,11 +70,11 @@ gtk-tabs-location = bottom
 gtk-wide-tabs = false
 window-padding-balance = true
 window-decoration = false
-window-save-state = always
+window-save-state = never
 window-inherit-font-size = true
 window-inherit-working-directory = true
 
-scrollback-limit = 100000000
+scrollback-limit = 10000
 
 # Other
 copy-on-select = clipboard

@@ -3,12 +3,16 @@
         email = max.emil.niia@gmail.com
 
 [credential "https://github.com"]
-        username = MaxNiia
         email = muxinatorn@gmail.com
         helper = !/usr/bin/gh auth git-credential
 
 [credential "https://dev.azure.com"]
         useHttpPath = true
+
+[credential]
+	credentialStore = gpg
+	helper = 
+	helper = /usr/local/bin/git-credential-manager
 
 [init]
 	templateDir = /home/max/.git-template
@@ -75,7 +79,7 @@
         process = git-lfs filter-process
         required = true
 [merge]
-        conflictstyle = diff3
+        conflictstyle = zdiff3
         tool = nvimmerge
 [mergetool]
         prompt = true
@@ -95,9 +99,8 @@
 [difftool]
         prompt = false
 
-[difftool "nvim_difftool"]
+[difftool "nvimdiff"]
         cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
-
 [rebase]
         autosquash = true
         autostash = true
@@ -153,4 +156,3 @@
 
 [delta]
         navigate = true
-

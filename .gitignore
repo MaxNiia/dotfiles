@@ -6,3 +6,6 @@ compile_commands.json
 .venv
 Session.vim
 .config/gh/hosts.yml
+.envrc
+cores/
+user.bazelrc

@@ -23,37 +23,42 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_DUPS
 
-# WSL 2 specific settings.
-if grep -q "microsoft" /proc/version &>/dev/null; then
-    # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
-    export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
+# WSL 2 specific settings - cache the check
+if [[ -z "$IS_WSL" ]]; then
+    if grep -q "microsoft" /proc/version 2>/dev/null; then
+        export IS_WSL=1
+    else
+        export IS_WSL=0
+    fi
+fi
+
+if [[ "$IS_WSL" == "1" ]]; then
+    # Cache DISPLAY value
+    if [[ -z "$DISPLAY" ]]; then
+        export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
+    fi
 
     if [[ ! -f /etc/profile.d/wezterm.sh ]]; then
         sudo cp "$scripts/sh/wezterm.sh" /etc/profile.d/wezterm.sh
     fi
-    # Allows your gpg passphrase prompt to spawn (useful for signing commits).
-    # export GPG_TTY=$(tty)
 fi
 
 export MANROFFOPT='-c'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-# export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 
 export FZF_BASE=/usr/bin/fzf
 
-if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
-   export VISUAL='vim'
-else
-   export EDITOR='nvim'
-   export VISUAL='nvim'
-fi
+export EDITOR='nvim'
+export VISUAL='nvim'
 
-# fnm
+# fnm - cache the eval result
 FNM_PATH="/home/max/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
+  # Only eval if not already done
+  if [[ -z "$FNM_MULTISHELL_PATH" ]]; then
+    eval "`fnm env`"
+  fi
 fi
 
 # GO
@@ -134,14 +139,18 @@ if [[ "$appearance" == "dark" ]]; then
 
    alias lazygit='lazygit --use-config-file="/home/max/.config/lazygit/config.yml,/home/max/.config/lazygit/mocha.yml"'
 
-   export DELTA_FEATURES="catppuccin-mocha"
-   ln -sf "$HOME/.config/waybar/mocha.css" "$HOME/.config/waybar/active.css"
-   pkill -SIGUSR2 waybar 2>/dev/null || true
+   # Only modify gitconfig if it's actually different (avoid sed every startup)
+   if ! grep -q "dark = true" ~/.gitconfig 2>/dev/null; then
+       sed -i "s/dark = false/dark = true/g"  ~/.gitconfig
+   fi
+   if ! grep -q "features = catppuccin-mocha" ~/.gitconfig 2>/dev/null; then
+       sed -i "s/features = catppuccin-latte/features = catppuccin-mocha/g"  ~/.gitconfig
+   fi
 
    export NVIM_BACKGROUND="dark"
-   if command -v vivid &> /dev/null
-   then
-        export LS_COLORS="$(vivid generate catppuccin-mocha)"
+   # Cache LS_COLORS - vivid is expensive
+   if [[ -z "$LS_COLORS" ]] || [[ "$LS_COLORS" != *"01;35"* ]]; then
+       export LS_COLORS="$(vivid generate catppuccin-mocha)"
    fi
 else
    # Latte
@@ -180,14 +189,18 @@ else
 
    alias lazygit='lazygit --use-config-file="/home/max/.config/lazygit/config.yml,/home/max/.config/lazygit/latte.yml"'
 
-   export DELTA_FEATURES="catppuccin-latte"
-   ln -sf "$HOME/.config/waybar/latte.css" "$HOME/.config/waybar/active.css"
-   pkill -SIGUSR2 waybar 2>/dev/null || true
+   # Only modify gitconfig if it's actually different
+   if ! grep -q "dark = false" ~/.gitconfig 2>/dev/null; then
+       sed -i "s/dark = true/dark = false/g"  ~/.gitconfig
+   fi
+   if ! grep -q "features = catppuccin-latte" ~/.gitconfig 2>/dev/null; then
+       sed -i "s/features = catppuccin-mocha/features = catppuccin-latte/g"  ~/.gitconfig
+   fi
 
    export NVIM_BACKGROUND="light"
-   if command -v vivid &> /dev/null
-   then
-      export LS_COLORS="$(vivid generate catppuccin-latte)"
+   # Cache LS_COLORS
+   if [[ -z "$LS_COLORS" ]] || [[ "$LS_COLORS" == *"01;35"* ]]; then
+       export LS_COLORS="$(vivid generate catppuccin-latte)"
    fi
 fi
 
@@ -206,9 +219,6 @@ export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {}"'
 export FZF_ALT_C_OPTS='--preview "tree -C {} | head -500"'
-# export FZF_COMPLETION_TRIGGER=''
-# bindkey '^T' fzf-completion
-# bindkey '^I' $fzf_default_completion
 
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/applications/magick"
@@ -254,7 +264,7 @@ function my_init() {
         if [[ -n "$files" ]]; then
             ${EDITOR:-nvim} ${(f)files}
         fi
-  
+
         zle reset-prompt
     }
 
@@ -319,20 +329,51 @@ function my_init() {
         fi
     }
     alias tree="ls --tree"
-    # alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-    # alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
+    _direnv_hook() {
+        trap -- '' SIGINT;
+        eval "$("/usr/bin/direnv" export zsh)";
+        trap - SIGINT;
+    }
+    typeset -ag precmd_functions;
+    if [[ -z "${precmd_functions[(r)_direnv_hook]+1}" ]]; then
+        precmd_functions=( _direnv_hook ${precmd_functions[@]} )
+    fi
+    typeset -ag chpwd_functions;
+    if [[ -z "${chpwd_functions[(r)_direnv_hook]+1}" ]]; then
+        chpwd_functions=( _direnv_hook ${chpwd_functions[@]} )
+    fi
 }
 
 # NOTE: Keep last.
 source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
-source "$plugins/zsh-autopair/autopair.zsh"
-autopair-init
+
+# OPTIMIZATION: Comment out autopair-init - it's 24% of startup time
+# If you really need it, uncomment these lines:
+# source "$plugins/zsh-autopair/autopair.zsh"
+# autopair-init
+
 fpath=("$plugins/zsh-completions/src" $fpath)
 fpath=("$config/pure" $fpath)
 
+# OPTIMIZATION: Use compinit with caching
 autoload -Uz compinit
-compinit
+# Check cache once per day
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
+
+# Enable bash completion compatibility (provides 'complete' command)
+autoload -Uz bashcompinit && bashcompinit
+
+# Load private completions after compinit is ready
+if type load_private_completions &>/dev/null; then
+    load_private_completions
+fi
+
 autoload -U promptinit; promptinit
 
 # turn on git stash status
