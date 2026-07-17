@@ -98,3 +98,5 @@ git_update https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Lazygit
 go install github.com/jesseduffield/lazygit@latest
+
+sudo ln -s ${SCRIPTS}/sh/tree.sh /usr/bin/local/tree

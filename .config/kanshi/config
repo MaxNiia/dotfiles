@@ -1,8 +1,8 @@
 profile dual {
-    output DP-3 mode 3840x2160@144Hz position 0,0
-    output DP-1 mode 3840x2160@144Hz position 3840,0
+    output DP-3 mode 3840x2160@144Hz position 0,0 scale 1.5
+    output DP-1 mode 3840x2160@144Hz position 2560,0 scale 1.5
 }
 
 profile single {
-    output DP-3 mode 3840x2160@144Hz position 0,0
+    output DP-3 mode 3840x2160@144Hz position 0,0 scale 1.5
 }

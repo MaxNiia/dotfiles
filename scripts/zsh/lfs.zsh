@@ -7,4 +7,3 @@ lfs_fix() {
    git reset .
    git checkout .
 }
-

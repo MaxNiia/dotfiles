@@ -15,7 +15,6 @@ font pango:IosevkaTermNerdFont 16
 
 exec dex --autostart --environment sway
 exec swayidle -w \
-    timeout 300 'swaylock -f -c 000000' \
     timeout 600 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
     before-sleep 'swaylock -f -c 000000'
@@ -28,6 +27,11 @@ exec_always sh -c 'pkill -x waybar; waybar'
 
 input type:keyboard {
     xkb_layout us,se
+}
+
+input "1133:50509:Logitech_USB_Receiver" {
+    accel_profile flat
+    pointer_accel 0
 }
 
 seat * hide_cursor 5000
@@ -149,9 +153,6 @@ bindsym Print exec sh -c 'f=~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H-%M-%S").
 bindsym $mod+Print exec sh -c 'f=~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H-%M-%S").png; grim -g "$(swaymsg -t get_tree | jq -r '\''.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"'\'')" "$f" && wl-copy --type image/png < "$f"'
 bindsym Shift+Print exec sh -c 'f=~/Pictures/Screenshots/$(date +"%Y-%m-%d_%H-%M-%S").png; grim -g "$(slurp)" "$f" && wl-copy --type image/png < "$f"'
 
-assign [app_id="org.gnome.Terminal"] workspace 7
-for_window [title="OpPanel Simulator"] move to workspace 7
-for_window [title="IO Simulator"] move to workspace 7
-for_window [title="Scooptram.*"] move to workspace 7
-for_window [title="Minetruck.*"] move to workspace 7
-workspace 7 output DP-3
+for_window [instance="Godot_Engine"] floating enable
+
+exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1

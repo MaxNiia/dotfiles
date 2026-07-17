@@ -328,7 +328,6 @@ function my_init() {
             git switch "$@"
         fi
     }
-    alias tree="ls --tree"
 
     _direnv_hook() {
         trap -- '' SIGINT;
